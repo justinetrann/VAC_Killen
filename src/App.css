@@ -8,14 +8,26 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  height: 40px;
+  padding: 10px 0;
+  height: 60px;
   position: fixed;
   width: 100%;
   top: 0;
   transition: background-color 0.5s ease;
-  z-index: 10;
+  z-index: 1000;
+}
+
+.church-name a {
+  text-decoration: none;
+}
+
+.church-name a,
+.church-name a:visited,
+.church-name a:hover,
+.church-name a:active,
+.church-name a:focus {
+  text-decoration: none;
+  color: White;
 }
 
 .transparentNav {
@@ -30,143 +42,14 @@ body {
   color: white;
 }
 
-.nav-links a {
-  color: white;
+.nav-links a, .church-name {
+  color: black; /* Default color for transparentNav */
   text-decoration: none;
   font-weight: bold;
   margin: 0 15px;
-}
-
-.church-name{
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 19px;
-  margin: 0 15px;
-  margin-left: -49%;
 }
 
 .logo {
-  padding: 10px;
-  width: 60px;
+  width: 50px; /* Adjust as necessary */
   height: auto;
-}
-
-.slide-container {
-  position: relative;
-  z-index: 1;
-  margin-top: 5px;
-}
-
-.each-slide > div {
-  position: relative;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  height: 100vh;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-.what-we-believe {
-  text-align: center;
-  font-size: 25px;
-  color: gray;
-  margin-top: 70px;
-}
-
-.what-we-believe-info {
-  font-family:'Segoe UI', sans-serif;
-  text-align: center;
-  font-size: 15px;
-  color: gray;
-  margin: -15px 250px;
-}
-
-.container {
-  margin-top: 50px;
-  display: flex;
-}
-
-.white-box {
-  flex: 1;
-  height: 400px;
-  background-color: white;
-  margin: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-  position: relative;
-  perspective: 1000px;
-  transition: transform 0.8s;
-  transform-style: preserve-3d; 
-}
-
-.white-box:hover {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.white-box.flipped {
-  transform: rotateY(180deg);
-}
-
-.white-box .front,
-.white-box .back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-}
-
-.white-box .front {
-  z-index: 2;
-  transform: rotateY(0deg);
-}
-
-.white-box .back {
-  transform: rotateY(180deg);
-}
-
-.white-box .back p{
-  font-size: 15px;
-  padding: 0 10px;
-}
-
-.white-box h1{
-  text-align: center;
-  font-size: 20px;
-  color: gray;
-}
-
-.front-image {
-  width: 70%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px 10px 0 0;
-  display: block;
-  margin: auto;
-}
-
-.front-image:hover {
-  background-color: lightgray;
-}
-
-.statement-of-faith h1{
-  text-align: center;
-  font-size: 45px;
-  color: gray;
-  margin-top: 50px;
-}
-
-.statement-of-faith p{
-  text-align: center;
-  margin-left: 50px;
-  margin-right: 50px;
 }
