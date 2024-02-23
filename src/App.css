@@ -75,3 +75,79 @@ body {
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.what-we-believe {
+  text-align: center;
+  font-size: 25px;
+  color: gray;
+  margin-top: 70px;
+}
+
+.what-we-believe-info {
+  font-family:'Segoe UI', sans-serif;
+  text-align: center;
+  font-size: 15px;
+  color: gray;
+  margin: -15px 250px;
+}
+
+.container {
+  margin-top: 50px;
+  display: flex;
+}
+
+.white-box {
+  flex: 1;
+  height: 400px;
+  background-color: white;
+  margin: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  position: relative;
+  perspective: 1000px;
+  transition: transform 0.8s;
+  transform-style: preserve-3d; 
+}
+
+.white-box:hover {
+  background-color: lightgray;
+}
+
+.white-box.flipped {
+  transform: rotateY(180deg);
+}
+
+.white-box .front,
+.white-box .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.white-box .front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.white-box .back {
+  transform: rotateY(180deg);
+}
+
+.white-box .back p{
+  font-size: 15px;
+  padding: 0 10px;
+}
+
+.white-box h1{
+  text-align: center;
+  font-size: 20px;
+  color: gray;
+}
+
+.statement-of-faith h1{
+  text-align: center;
+  font-size: 45px;
+  color: gray;
+  margin-top: 50px;
+}
