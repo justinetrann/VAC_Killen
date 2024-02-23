@@ -4,34 +4,14 @@ body {
   font-family: 'Judson', serif;
 }
 
-.top-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  text-align: left;
-  padding: 15px 15px;
-  background-color: transparent;
-  border-bottom: 0.1px solid white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
-
-.church-name {
-  font-size: large;
-  font-weight: bold;
-  color: White;
-}
-
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 55px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   height: 40px;
-  position: fixed; /* or 'absolute' depending on your layout */
+  position: fixed;
   width: 100%;
   top: 0;
   transition: background-color 0.5s ease;
@@ -42,31 +22,31 @@ body {
   background-color: transparent;
 }
 
-.darkNav .church-name, .darkNav .login a{
-    color: black;
+.darkNav {
+  background-color: black;
 }
 
-.navbar.darkNav a {
-  color: black;
-}
-
-.nav-links a, .login a {
+.darkNav .church-name, .darkNav .nav-links a {
   color: white;
-  font-size: large;
+}
+
+.nav-links a {
+  color: white;
   text-decoration: none;
   margin: 0 15px;
 }
 
-.login a{
-  font-size: large;
-  margin-right: 50px;
+.church-name{
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  margin-left: -53%;
 }
 
-.login a svg {
-  margin-right: 5px;
-  margin-bottom: 1px;
-  width: 12px;
-  height: 12px;
+.logo {
+  padding: 5px;
+  width: 60px;
+  height: auto;
 }
 
 .slide-container {
