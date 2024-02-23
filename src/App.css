@@ -145,13 +145,6 @@ body {
   color: gray;
 }
 
-.statement-of-faith h1{
-  text-align: center;
-  font-size: 45px;
-  color: gray;
-  margin-top: 50px;
-}
-
 .front-image {
   width: 70%;
   height: auto;
@@ -163,4 +156,17 @@ body {
 
 .front-image:hover {
   background-color: lightgray;
+}
+
+.statement-of-faith h1{
+  text-align: center;
+  font-size: 45px;
+  color: gray;
+  margin-top: 50px;
+}
+
+.statement-of-faith p{
+  text-align: center;
+  margin-left: 50px;
+  margin-right: 50px;
 }

@@ -145,8 +145,19 @@ function App() {
       </div>
       <div className='statement-of-faith'>
         <h1>STATEMENT OF FAITH</h1>
+        <p>There is one God (1), Creator of all things (2), who is infinitely perfect (3), existing eternally in three persons: Father, Son, and Holy Spirit. (4)</p>
+        <p>Jesus Christ is the true God and the true man. (5) He was sent by the Father (6), conceived by the Holy Spirit and born of the virgin Mary. (7) He died on the cross, the Just for the unjust, (8) as a substitutionary sacrifice, (9) and all who believe in Him are justified on the ground of His shed blood. (10) He rose from the dead according to the Scriptures. (11) He is now at the right hand of Majesty on high as our great High Priest. (12) He will come again to establish His kingdom, righteousness and peace. (13)</p>
+        <p>The Holy Spirit is a divine person, (14) sent to indwell, guide, teach, gift, empower, and bear His fruit in every believer, (15) He convicts the world of sin, of righteousness, and of judgment. (16)</p>
+        <p>The Old and New Testaments, inerrant as originally given, were verbally inspired by God and are a complete revelation of His will for our salvation. They constitute the divine and only rule of Christian faith and practice. (17)</p>
+        <p>Man was originally created in the image and likeness of God: (18) he fell through disobedience, incurring thereby both physical and spiritual death. All men are born with a sinful nature, (19) are separated from the life of God, and can be saved only through the atoning work of the Lord Jesus Christ. (20) The portion of the impenitent and unbelieving is existence forever in conscious torment; (21) and that of the believer, in everlasting joy and bliss. (22)</p>
+        <p>Salvation has been provided through Jesus Christ for all people (23); Those who repent and believe in Him are justified by grace through faith (24), born again of the Holy Spirit (25), delivered from the dominion of darkness, transferred into the Kingdom of God’s Son(26), granted the gift of eternal life, and adopted as the children of God. (27).</p>
+        <p>It is the will of God that each believer should be filled with the Holy Spirit and be sanctified wholly, (28) being separated from sin and the world and fully dedicated to the will of God, thereby receiving power for holy living and effective service. (29) This is both a crisis and a progressive experience wrought in the life of the believer subsequent to conversion. (30)</p>
+        <p>Provision is made in the redemptive work of the Lord Jesus Christ for the healing of the whole person. (31) Prayer for the sick and anointing with oil are taught in the Scriptures (32) as privileges for the Church in this present age. (33)</p>
+        <p>The Church consists of all those who believe on the Lord Jesus Christ, are redeemed through His blood, and are born again of the Holy Spirit. Christ is the Head of the Body, the Church, (34) which has been commissioned by Him to go into all the world as a witness, preaching the gospel to all nations. (35) The local church is a body of believers in Christ who are joined together for the worship of God, for edification through the Word of God, for prayer, fellowship, the proclamation of the gospel, and observance of the ordinances of Baptism and the Lord‘s Supper. (36)</p> 
+        <p>There shall be a bodily resurrection of the just and of the unjust; for the former, a resurrection unto life; (37) for the latter, a resurrection unto judgment. (38)</p>
+        <p>The second coming of the Lord Jesus Christ is imminent (39) and will be personal, visible, and premillennial. (40) This is the believer’s blessed hope and is a vital truth which is an incentive to holy living and faithful service. (41)</p> 
       </div>
-      <div style={{ height: '2000px' }}>
+      <div style={{ height: '200px' }}>
       </div>
     </div>
   );
