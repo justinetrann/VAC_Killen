@@ -7,6 +7,10 @@ import './App.css';
 import image1 from './img/image1.jpg';
 import image2 from './img/image2.jpg';
 import image3 from './img/image3.jpg';
+import front1 from './img/front1.png';
+import front2 from './img/front2.png';
+import front3 from './img/front3.png';
+import front4 from './img/front4.png';
 import logo from './img/logo.png';
 
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -81,6 +85,7 @@ function App() {
         <div className={`white-box ${flipped[0] ? 'flipped' : ''}`} onClick={() => handleFlip(0)}>
         <div className="front">
           <h1>OUR FAITH</h1>
+          <img src={front1} alt="Front 1" className="front-image"/>
         </div>
         <div className="back">
           <p>In The Alliance, we are Jesus people. We say “all of Jesus” because we’re after His Lordship, 
@@ -96,6 +101,7 @@ function App() {
       <div className={`white-box ${flipped[1] ? 'flipped' : ''}`} onClick={() => handleFlip(1)}>
         <div className="front">
           <h1>OUR GREAT COMMISSION MISSION</h1>
+          <img src={front2} alt="Front 2" className="front-image"/>
         </div>
         <div className="back">
           <p>“All authority in heaven and on earth has been given to me. Therefore go and make disciples of all nations, 
@@ -109,6 +115,7 @@ function App() {
       <div className={`white-box ${flipped[2] ? 'flipped' : ''}`} onClick={() => handleFlip(2)}>
         <div className="front">
           <h1>IDENTITY</h1>
+          <img src={front3} alt="Front 3" className="front-image"/>
         </div>
         <div className="back">
           <p>We start with Jesus. He is the source of our love, the cause of our worship, and the core of our message.
@@ -124,6 +131,7 @@ function App() {
       <div className={`white-box ${flipped[3] ? 'flipped' : ''}`} onClick={() => handleFlip(3)}>
         <div className="front">
           <h1>STATEMENT OF FAITH</h1>
+          <img src={front4} alt="Front 4" className="front-image"/>
         </div>
         <div className="back">
           <p>What The Alliance believes about God, how He relates to us, and how we relate to Him is foundational in our teachings. 

@@ -110,7 +110,7 @@ body {
 }
 
 .white-box:hover {
-  background-color: lightgray;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .white-box.flipped {
@@ -150,4 +150,17 @@ body {
   font-size: 45px;
   color: gray;
   margin-top: 50px;
+}
+
+.front-image {
+  width: 70%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  display: block;
+  margin: auto;
+}
+
+.front-image:hover {
+  background-color: lightgray;
 }
