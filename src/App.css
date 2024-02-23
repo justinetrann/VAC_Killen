@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap');
+
+body {
+  font-family: 'Judson', serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.top-nav {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  width: 100%;
+  text-align: left;
+  padding: 15px 15px;
+  background-color: transparent;
+  border-bottom: 0.1px solid white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.church-name {
+  font-size: large;
+  font-weight: bold;
+  color: White;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 55px;
+  height: 40px;
+  position: fixed; /* or 'absolute' depending on your layout */
+  width: 100%;
+  top: 0;
+  transition: background-color 0.5s ease;
+  z-index: 10;
+}
+
+.transparentNav {
+  background-color: transparent;
+}
+
+.darkNav .church-name, .darkNav .login a{
+    color: black;
+}
+
+.navbar.darkNav a {
+  color: black;
+}
+
+.nav-links a, .login a {
   color: white;
+  font-size: large;
+  text-decoration: none;
+  margin: 0 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.login a{
+  font-size: large;
+  margin-right: 50px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.login a svg {
+  margin-right: 5px;
+  margin-bottom: 1px;
+  width: 12px;
+  height: 12px;
+}
+
+.slide-container {
+  position: relative;
+  z-index: 1;
+  margin-top: 5px;
+}
+
+.each-slide > div {
+  position: relative;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
 }
