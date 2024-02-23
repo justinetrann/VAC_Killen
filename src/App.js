@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './App.css';
-import logo from './img/logo.png';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import logo from './img/logo.png';
+import './App.css';
 
 function App() {
   const [navBackground, setNavBackground] = useState('transparentNav');

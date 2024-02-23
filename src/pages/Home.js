@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Slide } from 'react-slideshow-image';
+import Navbar from '../components/Navbar';
 import 'react-slideshow-image/dist/styles.css';
 import './Home.css';
 
@@ -11,29 +11,10 @@ import front1 from './img/front1.png';
 import front2 from './img/front2.png';
 import front3 from './img/front3.png';
 import front4 from './img/front4.png';
-import logo from './img/logo.png';
 
 const slideImages = [image1, image2, image3];
 
 function Home() {
-  const [navBackground, setNavBackground] = useState('transparentNav');
-
-  const handleScroll = () => {
-    const show = window.scrollY > 50;
-    if (show) {
-      setNavBackground('darkNav');
-    } else {
-      setNavBackground('transparentNav');
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('scroll', handleScroll);
-    return () => {
-      document.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   const [flipped, setFlipped] = useState(Array(4).fill(false));
 
   const handleFlip = (index) => {
@@ -44,19 +25,7 @@ function Home() {
 
   return (
     <div className="Home">
-      <nav className={`navbar ${navBackground}`}>
-        <img src={logo} alt="Logo" className="logo" />
-        <div className="church-name">
-        <Link to="/">Vietnamese Alliance Church Killen</Link>
-        </div>
-        <div className="nav-links">
-          <a href="#about">About</a>
-          <a href="#sermons">Sermons</a>
-          <a href="#events">Events</a>
-          <a href="#contact">Contact</a>
-          <a href="#login">Login</a>
-        </div>
-      </nav>
+      <Navbar />
       <div className="slide-container">
         <Slide easing="ease">
           {slideImages.map((slideImage, index) => (

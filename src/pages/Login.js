@@ -1,10 +1,10 @@
 import React from 'react';
+import Navbar from '../components/Navbar';
 
 function Login() {
   return (
-    <div>
-      <h2>Login Page</h2>
-      {/* Your login form or interface */}
+    <div className="Login">
+      <Navbar />
     </div>
   );
 }
