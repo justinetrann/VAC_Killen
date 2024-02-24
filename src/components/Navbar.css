@@ -46,3 +46,31 @@
   width: 4%;
   height: auto;
 }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  animation: fadeOut 3s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.navbar button {
+  font-family: 'Judson', serif;
+  font-size: medium;
+  font-weight: bold;
+  background: none;
+  border: none;
+  color: white;
+}

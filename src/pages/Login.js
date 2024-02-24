@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import useToast from '../hooks/useToast';
 import './Login.css';
 
 const firebaseConfig = {
@@ -22,6 +23,7 @@ function Login() {
   const [formValues, setFormValues] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -51,7 +53,7 @@ function Login() {
     if (Object.keys(validationErrors).length === 0) {
       signInWithEmailAndPassword(auth, formValues.email, formValues.password)
         .then(() => {
-          // Redirect or update state as needed
+          showToast('Logged in successfully');
           navigate('/'); // Adjust the path as per your routing setup
         })
         .catch((error) => {
@@ -61,6 +63,7 @@ function Login() {
           } else if (error.code === 'auth/wrong-password') {
             errorMessage = 'Incorrect password. Please try again.';
           }
+          showToast(errorMessage);
           setErrors(prevErrors => ({
             ...prevErrors,
             firebase: errorMessage

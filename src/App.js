@@ -4,49 +4,57 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import logo from './img/logo.png';
 import './App.css';
+import { AuthProvider, useAuth } from './components/AuthContext';
 
-function App() {
+function Navbar() {
+  const { currentUser, logout } = useAuth();
   const [navBackground, setNavBackground] = useState('transparentNav');
 
   const handleScroll = () => {
     const show = window.scrollY > 50;
-    if (show) {
-      setNavBackground('darkNav');
-    } else {
-      setNavBackground('transparentNav');
-    }
+    setNavBackground(show ? 'darkNav' : 'transparentNav');
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <nav className={`navbar ${navBackground}`}>
-          <img src={logo} alt="Logo" className="logo" />
-          <div className="church-name">
-            <Link to="/">Vietnamese Alliance Church Killen</Link>
-          </div>
-          <div className="nav-links">
-            <Link to="/">About</Link>
-            <Link to="/">Sermons</Link>
-            <Link to="/">Events</Link>
-            <Link to="/">Contact</Link>
-            <Link to="/login">Login</Link>
-          </div>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          {/* Add other routes as needed */}
-        </Routes>
+    <nav className={`navbar ${navBackground}`}>
+      <img src={logo} alt="Logo" className="logo" />
+      <div className="church-name">
+        <Link to="/">Vietnamese Alliance Church Killen</Link>
       </div>
-    </Router>
+      <div className="nav-links">
+        <Link to="/">About</Link>
+        <Link to="/">Sermons</Link>
+        <Link to="/">Events</Link>
+        <Link to="/">Contact</Link>
+        {currentUser ? (
+          <button onClick={() => logout()}>Logout</button>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
+      </div>
+    </nav>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            {/* Add other routes as needed */}
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
