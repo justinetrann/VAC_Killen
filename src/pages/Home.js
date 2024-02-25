@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import 'react-slideshow-image/dist/styles.css';
 import './Home.css';
 
@@ -64,12 +66,11 @@ function Home() {
 
   const handleFocus = () => setIsEditing(true);
 
-  const handleBlur = async (event, contentId) => {
-    const updatedContent = event.target.innerText;
-    setContent(prev => ({ ...prev, [contentId]: updatedContent }));
-
+  const handleBlur = async (content, contentId) => {
+    setContent((prev) => ({ ...prev, [contentId]: content }));
+  
     try {
-      await setDoc(doc(db, "contents", "pageContent"), { [contentId]: updatedContent }, { merge: true });
+      await setDoc(doc(db, "contents", "pageContent"), { [contentId]: content }, { merge: true });
       console.log("Document successfully updated!");
     } catch (error) {
       console.error("Error updating document: ", error);
@@ -102,11 +103,14 @@ function Home() {
         <h1>WHAT WE BELIEVE</h1>
       </div>
       <div className="what-we-believe-info">
-      <h3 contentEditable={!!currentUser}
-          suppressContentEditableWarning={true}
-          onBlur={(e) => handleBlur(e, 'what_we_believe')}>
-          {content.what_we_believe || 'Click to Edit'}
-      </h3>
+        {currentUser ? (
+          <ReactQuill 
+            value={content.what_we_believe || ''} 
+            onChange={(newContent) => handleBlur(newContent, 'what_we_believe')}
+          />
+        ) : (
+          <h3>{content.what_we_believe || 'Click to Edit'}</h3>
+        )}
       </div>
       <div className="container">
         <div className={`white-box ${flipped[0] ? 'flipped' : ''}`} onClick={() => handleFlip(0)}>
@@ -115,11 +119,14 @@ function Home() {
           <img src={front1} alt="Front 1" className="front-image"/>
         </div>
         <div className="back">
-          <p contentEditable={!!currentUser} 
-            suppressContentEditableWarning={true} 
-            onFocus={handleFocus} onBlur={(e) => handleBlur(e, 'our_faith')}>
-          {content.our_faith || 'Click to Edit'}
-          </p>
+          {currentUser ? (
+            <ReactQuill 
+              value={content.our_faith || ''} 
+              onChange={(newContent) => handleBlur(newContent, 'our_faith')}
+            />
+          ) : (
+            <p>{content.our_faith || 'Click to Edit'}</p>
+          )}
         </div>
       </div>
       <div className={`white-box ${flipped[1] ? 'flipped' : ''}`} onClick={() => handleFlip(1)}>
@@ -128,11 +135,14 @@ function Home() {
           <img src={front2} alt="Front 2" className="front-image"/>
         </div>
         <div className="back">
-          <p contentEditable={!!currentUser}
-            suppressContentEditableWarning={true}
-            onFocus={handleFocus} onBlur={(e) => handleBlur(e, 'our_great_commission_mission')}>
-          {content.our_great_commission_mission || 'Click to Edit'}
-          </p>
+          {currentUser ? (
+              <ReactQuill 
+                value={content.our_mission || ''} 
+                onChange={(newContent) => handleBlur(newContent, 'our_mission')}
+              />
+            ) : (
+              <p>{content.our_mission || 'Click to Edit'}</p>
+            )}
         </div>
       </div>
       <div className={`white-box ${flipped[2] ? 'flipped' : ''}`} onClick={() => handleFlip(2)}>
@@ -141,11 +151,14 @@ function Home() {
           <img src={front3} alt="Front 3" className="front-image"/>
         </div>
         <div className="back">
-          <p contentEditable={!!currentUser} 
-            suppressContentEditableWarning={true} 
-            onFocus={handleFocus} onBlur={(e) => handleBlur(e, 'identity')}>
-          {content.identity || 'Click to Edit'}
-          </p>
+          {currentUser ? (
+            <ReactQuill 
+              value={content.identity || ''} 
+              onChange={(newContent) => handleBlur(newContent, 'identity')}
+            />
+          ) : (
+            <p>{content.identity || 'Click to Edit'}</p>
+          )}
         </div>
       </div>
       <div className={`white-box ${flipped[3] ? 'flipped' : ''}`} onClick={() => handleFlip(3)}>
@@ -154,19 +167,27 @@ function Home() {
           <img src={front4} alt="Front 4" className="front-image"/>
         </div>
         <div className="back">
-          <p contentEditable={!!currentUser} 
-            suppressContentEditableWarning={true} 
-            onFocus={handleFocus} onBlur={(e) => handleBlur(e, 'statement_of_faith')}>
-          {content.statement_of_faith || 'Click to Edit'}
-          </p>
+          {currentUser ? (
+              <ReactQuill 
+                value={content.statement_of_faith || ''} 
+                onChange={(newContent) => handleBlur(newContent, 'statement_of_faith')}
+              />
+            ) : (
+              <p>{content.statement_of_faith || 'Click to Edit'}</p>
+            )}
         </div>
       </div>
       </div>
       <div className='statement-of-faith'>
         <h1>STATEMENT OF FAITH</h1>
-        <p contentEditable={!!currentUser} suppressContentEditableWarning={true} onBlur={(e) => handleBlur(e, 'statement_of_faith')}>
-          {content.statement_of_faith || 'Click to Edit'}
-        </p>
+        {currentUser ? (
+          <ReactQuill 
+            value={content.statement_of_faith_verse || ''} 
+            onChange={(newContent) => handleBlur(newContent, 'statement_of_faith_verse')}
+          />
+        ) : (
+          <p>{content.statement_of_faith_verse || 'Click to Edit'}</p>
+        )}
       </div>
       <div style={{ height: '200px' }}>
       </div>
