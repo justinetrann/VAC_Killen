@@ -10,11 +10,6 @@ import 'react-quill/dist/quill.snow.css';
 import 'react-slideshow-image/dist/styles.css';
 import './Home.css';
 
-import front1 from './img/front1.png';
-import front2 from './img/front2.png';
-import front3 from './img/front3.png';
-import front4 from './img/front4.png';
-
 const firebaseConfig = {
   apiKey: "AIzaSyCTpfM8O1jXnvUaRpT15ea53I7itKcPcQU",
   authDomain: "vackillen.firebaseapp.com",
@@ -36,26 +31,52 @@ function Home() {
   const [content, setContent] = useState({});
   const [loading, setLoading] = useState(true);
   const [slideImages, setSlideImages] = useState([]);
-
+  const [frontImages, setFrontImages] = useState({
+    front1: '',
+    front2: '',
+    front3: '',
+    front4: '',
+  });
 
   useEffect(() => {
     const loadContentAndImages = async () => {
       setLoading(true);
       try {
+        // Load page content
         const docRef = doc(db, "contents", "pageContent");
         const docSnap = await getDoc(docRef);
-  
+    
         if (docSnap.exists()) {
           setContent(docSnap.data());
         } else {
-          console.log("No such document!");
+          console.log("No such document for page content!");
         }
-  
+    
+        // Load slide images
         const imagesRef = doc(db, "images", "slideImages");
         const imagesSnap = await getDoc(imagesRef);
-  
+    
         if (imagesSnap.exists()) {
           setSlideImages(imagesSnap.data().urls);
+        } else {
+          console.log("No such document for slide images!");
+        }
+        
+        // Load front images for white boxes
+        const frontImagesRef = doc(db, "images", "frontImages");
+        const frontImagesSnap = await getDoc(frontImagesRef);
+    
+        if (frontImagesSnap.exists()) {
+          setFrontImages(frontImagesSnap.data());
+        } else {
+          console.log("No such document for front images!");
+          // Initialize with default values if the document doesn't exist
+          setFrontImages({
+            front1: '',
+            front2: '',
+            front3: '',
+            front4: '',
+          });
         }
       } catch (error) {
         console.error("Error loading data: ", error);
@@ -67,24 +88,21 @@ function Home() {
     loadContentAndImages();
   }, []);
 
-  const handleImageUpload = async (event) => {
+  const handleImageUpload = async (event, boxId) => {
     if (!currentUser) return;
-
+  
     const file = event.target.files[0];
     if (!file) return;
-
-    const storageRef = ref(storage, `slideImages/${file.name}`);
-    uploadBytes(storageRef, file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-
-      getDownloadURL(snapshot.ref).then((downloadURL) => {
-        const newSlideImages = [...slideImages, downloadURL];
-        setSlideImages(newSlideImages);
-
-        const imagesRef = doc(db, "images", "slideImages");
-        setDoc(imagesRef, { urls: newSlideImages }, { merge: true });
-      });
-    });
+  
+    const storageRef = ref(storage, `frontImages/${boxId}/${file.name}`);
+    await uploadBytes(storageRef, file);
+  
+    const downloadURL = await getDownloadURL(storageRef);
+    
+    setFrontImages(prev => ({ ...prev, [boxId]: downloadURL }));
+  
+    const imagesRef = doc(db, "images", "frontImages");
+    await setDoc(imagesRef, { [boxId]: downloadURL }, { merge: true });
   };
 
   // Handle image removal
@@ -168,7 +186,10 @@ function Home() {
         <div className={`white-box ${flipped[0] ? 'flipped' : ''}`} onClick={() => handleFlip(0)}>
         <div className="front">
           <h1>OUR FAITH</h1>
-          <img src={front1} alt="Front 1" className="front-image"/>
+          <img src={frontImages.front1} alt="Front 1" className="front-image"/>
+          {currentUser && (
+            <input type="file" onChange={(e) => handleImageUpload(e, 'front1')} />
+          )}
         </div>
         <div className="back">
           {currentUser ? (
@@ -185,7 +206,10 @@ function Home() {
       <div className={`white-box ${flipped[1] ? 'flipped' : ''}`} onClick={() => handleFlip(1)}>
         <div className="front">
           <h1>OUR GREAT COMMISSION MISSION</h1>
-          <img src={front2} alt="Front 2" className="front-image"/>
+          <img src={frontImages.front2} alt="Front 2" className="front-image"/>
+          {currentUser && (
+            <input type="file" onChange={(e) => handleImageUpload(e, 'front2')} />
+          )}
         </div>
         <div className="back">
           {currentUser ? (
@@ -202,7 +226,10 @@ function Home() {
       <div className={`white-box ${flipped[2] ? 'flipped' : ''}`} onClick={() => handleFlip(2)}>
         <div className="front">
           <h1>IDENTITY</h1>
-          <img src={front3} alt="Front 3" className="front-image"/>
+          <img src={frontImages.front3} alt="Front 3" className="front-image"/>
+          {currentUser && (
+            <input type="file" onChange={(e) => handleImageUpload(e, 'front3')} />
+          )}
         </div>
         <div className="back">
           {currentUser ? (
@@ -219,7 +246,10 @@ function Home() {
       <div className={`white-box ${flipped[3] ? 'flipped' : ''}`} onClick={() => handleFlip(3)}>
         <div className="front">
           <h1>STATEMENT OF FAITH</h1>
-          <img src={front4} alt="Front 4" className="front-image"/>
+          <img src={frontImages.front4} alt="Front 4" className="front-image"/>
+          {currentUser && (
+            <input type="file" onChange={(e) => handleImageUpload(e, 'front4')} />
+          )}
         </div>
         <div className="back">
           {currentUser ? (
