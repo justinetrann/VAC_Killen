@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+
 .Sermon .navbar{
    background-color: black;
    color: black;
@@ -5,4 +7,75 @@
 
 .Sermon{
    padding-top: 150px;
+}
+
+.form, .sermon-form {
+   position: relative;
+   z-index: 1;
+   background: #FFFFFF;
+   border-radius: 10px;
+   max-width: 360px;
+   margin: 0 auto 100px;
+   padding: 45px;
+   text-align: center;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+ 
+.form input, .sermon-form input, .sermon-form select {
+   outline: 0;
+   background: #f2f2f2;
+   width: 100%;
+   border: 0;
+   border-radius: 5px;
+   margin: 0 0 15px;
+   padding: 15px;
+   box-sizing: border-box;
+   font-size: 14px;
+   font-family: 'Comfortaa', cursive;
+}
+ 
+.form input:focus, .sermon-form input:focus, .sermon-form select:focus {
+   background: #dbdbdb;
+}
+
+.form button, .sermon-form button {
+   font-family: 'Comfortaa', cursive;
+   text-transform: uppercase;
+   outline: 0;
+   background: #801214;
+   width: 100%;
+   border: 0;
+   border-radius: 5px;
+   padding: 15px;
+   color: #FFFFFF;
+   font-size: 14px;
+   -webkit-transition: all 0.3 ease;
+   transition: all 0.3 ease;
+   cursor: pointer;
+}
+ 
+.form button:active, .sermon-form button:active {
+   background:#b34345;
+}
+
+.form span, .sermon-form span {
+   font-size: 40px;
+   color: #801214;
+   margin-bottom: 25px;
+   display: block;
+}
+
+.form p.error, .sermon-form p.error {
+   margin: 0 0 10px 10px;
+   text-align: left;
+   font-size: 10px;
+   color: red;
+}
+
+.sermon-form label {
+   display: block;
+   margin-bottom: 5px;
+   color: #333;
+   font-size: 16px;
+   font-family: 'Comfortaa', cursive;
 }

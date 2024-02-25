@@ -89,14 +89,31 @@ function Sermon() {
      <Navbar />
      <div className="sermon-content">
        {user && (
-         // Form for logged-in users
-         <form onSubmit={handleFormSubmit}>
-           <input name="title" placeholder="Title" required />
-           <input name="date" type="date" required />
-           <input name="scheduleFile" type="file" accept=".pdf,.doc,.docx" required />
-           <input name="lessonFile" type="file" accept=".pdf,.doc,.docx" required />
-           <input name="audioFile" type="file" accept="audio/*" required />
-           <button type="submit">Submit</button>
+         <form className="sermon-form" onSubmit={handleFormSubmit}>
+         <div className="form-group">
+            <input id="title" name="title" placeholder="Title" required />
+         </div>
+
+         <div className="form-group">
+            <input id="date" name="date" type="date" required />
+         </div>
+
+         <div className="form-group">
+            <label htmlFor="scheduleFile">Schedule (PDF, DOC, DOCX):</label>
+            <input id="scheduleFile" name="scheduleFile" type="file" accept=".pdf,.doc,.docx"/>
+         </div>
+
+         <div className="form-group">
+            <label htmlFor="lessonFile">Lesson (PDF, DOC, DOCX):</label>
+            <input id="lessonFile" name="lessonFile" type="file" accept=".pdf,.doc,.docx"/>
+         </div>
+
+         <div className="form-group">
+            <label htmlFor="audioFile">Audio File:</label>
+            <input id="audioFile" name="audioFile" type="file" accept="audio/*"/>
+         </div>
+
+         <button type="submit">Submit</button>
          </form>
        )}
 
