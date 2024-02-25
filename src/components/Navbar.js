@@ -35,7 +35,7 @@ function Navbar() {
       <nav className={`navbar ${navBackground}`}>
         <img src={logo} alt="Logo" className="logo" />
         <div className="church-name">
-          <Link to="/">Vietnamese Alliance Church Killen</Link>
+          <Link to="/">Vietnamese Alliance Church Killeen</Link>
         </div>
         <div className="nav-links">
           <Link to="#about">About</Link>
