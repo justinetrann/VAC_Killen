@@ -146,10 +146,10 @@ function Home() {
               </div>
             </div>
           ))}
-          {currentUser !== null && currentUser !== undefined && (
-              <input className="add-button" type="file" onChange={handleImageUpload} />
-          )}
         </Slide>
+        {currentUser && (
+            <input className="add-button" type="file" onChange={handleImageUpload} style={{ position: 'absolute', zIndex: 1000 }} />
+        )}
       </div>
       <div className="what-we-believe">
         <h1>WHAT WE BELIEVE</h1>
