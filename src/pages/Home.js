@@ -76,7 +76,6 @@ function Home() {
     }
   };
 
-
   const handleFlip = (index) => {
     if (!isEditing) {
       const newFlipped = [...flipped];
