@@ -4,20 +4,16 @@ import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-slideshow-image/dist/styles.css';
 import './Home.css';
 
-import image1 from './img/image1.jpg';
-import image2 from './img/image2.jpg';
-import image3 from './img/image3.jpg';
 import front1 from './img/front1.png';
 import front2 from './img/front2.png';
 import front3 from './img/front3.png';
 import front4 from './img/front4.png';
-
-const slideImages = [image1, image2, image3];
 
 const firebaseConfig = {
   apiKey: "AIzaSyCTpfM8O1jXnvUaRpT15ea53I7itKcPcQU",
@@ -30,6 +26,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
+
 
 function Home() {
   const { currentUser } = useAuth();
@@ -37,9 +35,11 @@ function Home() {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState({});
   const [loading, setLoading] = useState(true);
-  
+  const [slideImages, setSlideImages] = useState([]);
+
+
   useEffect(() => {
-    const loadContent = async () => {
+    const loadContentAndImages = async () => {
       setLoading(true);
       try {
         const docRef = doc(db, "contents", "pageContent");
@@ -50,15 +50,60 @@ function Home() {
         } else {
           console.log("No such document!");
         }
+
+        const imagesRef = doc(db, "images", "slideImages");
+        const imagesSnap = await getDoc(imagesRef);
+
+        if (imagesSnap.exists()) {
+          setSlideImages(imagesSnap.data().urls);
+        }
       } catch (error) {
-        console.error("Error loading document: ", error);
+        console.error("Error loading data: ", error);
       } finally {
         setLoading(false);
       }
     };
 
-    loadContent();
+    loadContentAndImages();
   }, []);
+
+  const handleImageUpload = async (event) => {
+    if (!currentUser) return;
+
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const storageRef = ref(storage, `slideImages/${file.name}`);
+    uploadBytes(storageRef, file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+
+      getDownloadURL(snapshot.ref).then((downloadURL) => {
+        const newSlideImages = [...slideImages, downloadURL];
+        setSlideImages(newSlideImages);
+
+        const imagesRef = doc(db, "images", "slideImages");
+        setDoc(imagesRef, { urls: newSlideImages }, { merge: true });
+      });
+    });
+  };
+
+  // Handle image removal
+  const handleRemoveImage = (imageToRemove) => {
+    if (!currentUser) return;
+
+    const newSlideImages = slideImages.filter(image => image !== imageToRemove);
+    setSlideImages(newSlideImages);
+
+    const imagesRef = doc(db, "images", "slideImages");
+    setDoc(imagesRef, { urls: newSlideImages }, { merge: true });
+
+    const imageRef = ref(storage, imageToRemove);
+    deleteObject(imageRef).then(() => {
+      console.log('Image deleted successfully');
+    }).catch((error) => {
+      console.error('Error removing image: ', error);
+    });
+  };
 
   if (loading) {
     return <div className="loading-container"></div>;
@@ -95,9 +140,17 @@ function Home() {
             <div className="each-slide" key={index}>
               <div style={{'backgroundImage': `url(${slideImage})`, height: '100vh', backgroundSize: 'cover'}}>
                 <div className="overlay"></div>
+                {currentUser && (
+                  <button onClick={() => handleRemoveImage(slideImage)} style={{ marginTop: '20%', textAlign: 'center' }}>Remove</button>
+                )}
               </div>
             </div>
           ))}
+          {currentUser && (
+            <div style={{ marginTop: '20%', textAlign: 'center' }}>
+              <input type="file" onChange={handleImageUpload} />
+            </div>
+          )}
         </Slide>
       </div>
       <div className="what-we-believe">
