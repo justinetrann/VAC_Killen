@@ -184,3 +184,36 @@ body {
   margin-left: 50px;
   margin-right: 50px;
 }
+
+.each-slide {
+  position: relative;
+  height: 100vh;
+}
+
+.remove-button {
+  position: absolute;
+  top: 20%;
+  right: 10px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.7);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+ .add-button {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  border: 2px solid #000; /* Example border */
+  border-radius: 5px; /* Rounded corners */
+  font-weight: bold; /* Bold font */
+}

@@ -141,15 +141,13 @@ function Home() {
               <div style={{'backgroundImage': `url(${slideImage})`, height: '100vh', backgroundSize: 'cover'}}>
                 <div className="overlay"></div>
                 {currentUser && (
-                  <button onClick={() => handleRemoveImage(slideImage)} style={{ marginTop: '20%', textAlign: 'center' }}>Remove</button>
+                  <button className="remove-button" onClick={() => handleRemoveImage(slideImage)}>Remove</button>
                 )}
               </div>
             </div>
           ))}
           {currentUser && (
-            <div style={{ marginTop: '20%', textAlign: 'center' }}>
-              <input type="file" onChange={handleImageUpload} />
-            </div>
+              <input  className="add-button" type="file" onChange={handleImageUpload} />
           )}
         </Slide>
       </div>
