@@ -44,16 +44,16 @@ function Home() {
       try {
         const docRef = doc(db, "contents", "pageContent");
         const docSnap = await getDoc(docRef);
-
+  
         if (docSnap.exists()) {
           setContent(docSnap.data());
         } else {
           console.log("No such document!");
         }
-
+  
         const imagesRef = doc(db, "images", "slideImages");
         const imagesSnap = await getDoc(imagesRef);
-
+  
         if (imagesSnap.exists()) {
           setSlideImages(imagesSnap.data().urls);
         }
@@ -63,7 +63,7 @@ function Home() {
         setLoading(false);
       }
     };
-
+  
     loadContentAndImages();
   }, []);
 
