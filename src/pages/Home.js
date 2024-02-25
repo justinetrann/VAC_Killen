@@ -67,6 +67,7 @@ function Home() {
   const handleFocus = () => setIsEditing(true);
 
   const handleBlur = async (content, contentId) => {
+    setIsEditing(false);
     setContent((prev) => ({ ...prev, [contentId]: content }));
   
     try {
@@ -76,7 +77,6 @@ function Home() {
       console.error("Error updating document: ", error);
     }
   };
-
   const handleFlip = (index) => {
     if (!isEditing) {
       const newFlipped = [...flipped];
@@ -123,6 +123,7 @@ function Home() {
             <ReactQuill 
               value={content.our_faith || ''} 
               onChange={(newContent) => handleBlur(newContent, 'our_faith')}
+              onFocus={handleFocus}
             />
           ) : (
             <p>{content.our_faith || 'Click to Edit'}</p>
@@ -139,6 +140,7 @@ function Home() {
               <ReactQuill 
                 value={content.our_mission || ''} 
                 onChange={(newContent) => handleBlur(newContent, 'our_mission')}
+                onFocus={handleFocus}
               />
             ) : (
               <p>{content.our_mission || 'Click to Edit'}</p>
@@ -155,6 +157,7 @@ function Home() {
             <ReactQuill 
               value={content.identity || ''} 
               onChange={(newContent) => handleBlur(newContent, 'identity')}
+              onFocus={handleFocus}
             />
           ) : (
             <p>{content.identity || 'Click to Edit'}</p>
@@ -171,6 +174,7 @@ function Home() {
               <ReactQuill 
                 value={content.statement_of_faith || ''} 
                 onChange={(newContent) => handleBlur(newContent, 'statement_of_faith')}
+                onFocus={handleFocus}
               />
             ) : (
               <p>{content.statement_of_faith || 'Click to Edit'}</p>
