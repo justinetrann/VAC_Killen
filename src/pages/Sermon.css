@@ -11,7 +11,7 @@
 
 .form, .sermon-form {
    position: relative;
-   z-index: 1;
+   z-index: 1051; 
    background: #FFFFFF;
    border-radius: 10px;
    max-width: 360px;
@@ -79,3 +79,34 @@
    font-size: 16px;
    font-family: 'Comfortaa', cursive;
 }
+
+.toggle-form-icon {
+   position: fixed;
+   bottom: 20px;
+   left: 20px;
+   width: 60px;
+   height: 60px;
+   background-color: white;
+   border-radius: 30%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+   cursor: pointer;
+   z-index: 1050; /* Ensure it's above the overlay */
+ }
+ 
+ .overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0,0,0,0.5);
+   z-index: 1040;
+ }
+ 
+ .fa-folder {
+   color: #801214;
+   font-size: 2em;
+ }
