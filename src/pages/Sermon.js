@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faNoteSticky, faFolder } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/Navbar';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
@@ -25,6 +25,7 @@ const firebaseConfig = {
 function Sermon() {
   const [user, setUser] = useState(null);
   const [sermons, setSermons] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -83,12 +84,19 @@ function Sermon() {
      console.error("Error submitting form: ", error);
    }
  };
+
+ const toggleFormVisibility = () => {
+   if (user) {
+     setShowForm(!showForm);
+   }
+ };
  
  return (
    <div className='Sermon'>
      <Navbar />
+     {showForm && <div className="overlay" onClick={() => setShowForm(false)}></div>}
      <div className="sermon-content">
-       {user && (
+      {showForm && user && (
          <form className="sermon-form" onSubmit={handleFormSubmit}>
          <div className="form-group">
             <input id="title" name="title" placeholder="Title" required />
@@ -134,6 +142,9 @@ function Sermon() {
            </div>
          </div>
        ))}
+      <div className="toggle-form-icon" onClick={toggleFormVisibility}>
+         <FontAwesomeIcon icon={faFolder} />
+      </div>
      </div>
    </div>
  );
