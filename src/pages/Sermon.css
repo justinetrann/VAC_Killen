@@ -9,6 +9,11 @@
    padding-top: 150px;
 }
 
+.no-scroll {
+   overflow: hidden;
+   height: 100%;
+ }
+
 .form, .sermon-form {
    position: relative;
    z-index: 1051; 

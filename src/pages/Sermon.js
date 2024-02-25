@@ -88,6 +88,7 @@ function Sermon() {
  const toggleFormVisibility = () => {
    if (user) {
      setShowForm(!showForm);
+     document.body.classList.toggle('no-scroll', !showForm);
    }
  };
  
