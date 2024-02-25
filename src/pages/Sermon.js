@@ -95,6 +95,7 @@ function Sermon() {
  return (
    <div className='Sermon'>
      <Navbar />
+     <h1>Sermons</h1>
      {showForm && <div className="overlay" onClick={() => setShowForm(false)}></div>}
      <div className="sermon-content">
       {showForm && user && (
@@ -137,9 +138,12 @@ function Sermon() {
              <a href={sermon.lessonUrl} target="_blank" rel="noopener noreferrer">
                <FontAwesomeIcon icon={faNoteSticky} /> Lesson
              </a>
-             <a href={sermon.audioUrl} target="_blank" rel="noopener noreferrer">
-               <FontAwesomeIcon icon="fa-solid fa-music" /> Audio
-             </a>
+             <div>
+               <audio controls>
+                  <source src={sermon.audioUrl} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+               </audio>
+            </div>
            </div>
          </div>
        ))}

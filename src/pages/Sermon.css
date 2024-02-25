@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap');
 
 .Sermon .navbar{
    background-color: black;
    color: black;
 }
-
-.Sermon{
-   padding-top: 150px;
+.Sermon h1{
+   padding: 70px 20px;
+   font-family: 'Judson', serif;
+   color: #801214;
 }
 
 .no-scroll {
