@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
+import Sermon from './pages/Sermon';
 import Login from './pages/Login';
 import logo from './img/logo.png';
 import './App.css';
@@ -28,7 +29,7 @@ function Navbar() {
       </div>
       <div className="nav-links">
         <Link to="/">About</Link>
-        <Link to="/">Sermons</Link>
+        <Link to="/sermons">Sermons</Link>
         <Link to="/">Events</Link>
         <Link to="/">Contact</Link>
         {currentUser ? (
@@ -50,6 +51,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/sermons" element={<Sermon />} />
             {/* Add other routes as needed */}
           </Routes>
         </div>

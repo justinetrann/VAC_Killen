@@ -39,7 +39,7 @@ function Navbar() {
         </div>
         <div className="nav-links">
           <Link to="#about">About</Link>
-          <Link to="#sermons">Sermons</Link>
+          <Link to="/sermons">Sermons</Link>
           <Link to="#events">Events</Link>
           <Link to="#contact">Contact</Link>
           {currentUser ? (
