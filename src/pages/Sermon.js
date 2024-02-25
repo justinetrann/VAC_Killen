@@ -88,7 +88,7 @@ function Sermon() {
    <div className='Sermon'>
      <Navbar />
      <div className="sermon-content">
-       {user ? (
+       {user && (
          // Form for logged-in users
          <form onSubmit={handleFormSubmit}>
            <input name="title" placeholder="Title" required />
@@ -98,27 +98,25 @@ function Sermon() {
            <input name="audioFile" type="file" accept="audio/*" required />
            <button type="submit">Submit</button>
          </form>
-       ) : (
-         // Display sermons for logged-out users
-         sermons.map(sermon => (
-           <div key={sermon.id} className="sermon-item">
-             <div className="sermon-date">Date: {sermon.date}</div>
-             <div className="sermon-title">Title: {sermon.title}</div>
-             <div className="sermon-files">
-               <a href={sermon.scheduleUrl} target="_blank" rel="noopener noreferrer">
-                 <FontAwesomeIcon icon={faCalendar} /> Schedule
-               </a>
-               <a href={sermon.lessonUrl} target="_blank" rel="noopener noreferrer">
-                 <FontAwesomeIcon icon={faNoteSticky} /> Lesson
-               </a>
-               {/* Assuming you have an audio icon or use a generic link for audio files */}
-               <a href={sermon.audioUrl} target="_blank" rel="noopener noreferrer">
-                 <FontAwesomeIcon icon="fa-solid fa-music" /> Audio
-               </a>
-             </div>
-           </div>
-         ))
        )}
+
+       {sermons.map(sermon => (
+         <div key={sermon.id} className="sermon-item">
+           <div className="sermon-date">Date: {sermon.date}</div>
+           <div className="sermon-title">Title: {sermon.title}</div>
+           <div className="sermon-files">
+             <a href={sermon.scheduleUrl} target="_blank" rel="noopener noreferrer">
+               <FontAwesomeIcon icon={faCalendar} /> Schedule
+             </a>
+             <a href={sermon.lessonUrl} target="_blank" rel="noopener noreferrer">
+               <FontAwesomeIcon icon={faNoteSticky} /> Lesson
+             </a>
+             <a href={sermon.audioUrl} target="_blank" rel="noopener noreferrer">
+               <FontAwesomeIcon icon="fa-solid fa-music" /> Audio
+             </a>
+           </div>
+         </div>
+       ))}
      </div>
    </div>
  );
