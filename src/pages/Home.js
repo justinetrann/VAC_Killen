@@ -37,7 +37,7 @@ function Home() {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState({});
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const loadContent = async () => {
       setLoading(true);
@@ -69,7 +69,7 @@ function Home() {
   const handleBlur = async (content, contentId) => {
     setIsEditing(false);
     setContent((prev) => ({ ...prev, [contentId]: content }));
-  
+    
     try {
       await setDoc(doc(db, "contents", "pageContent"), { [contentId]: content }, { merge: true });
       console.log("Document successfully updated!");
@@ -77,6 +77,7 @@ function Home() {
       console.error("Error updating document: ", error);
     }
   };
+
   const handleFlip = (index) => {
     if (!isEditing) {
       const newFlipped = [...flipped];
@@ -109,7 +110,7 @@ function Home() {
             onChange={(newContent) => handleBlur(newContent, 'what_we_believe')}
           />
         ) : (
-          <h3>{content.what_we_believe || 'Click to Edit'}</h3>
+          <div dangerouslySetInnerHTML={{ __html: content.what_we_believe || 'Click to Edit' }}></div>
         )}
       </div>
       <div className="container">
@@ -126,7 +127,7 @@ function Home() {
               onFocus={handleFocus}
             />
           ) : (
-            <p>{content.our_faith || 'Click to Edit'}</p>
+            <div dangerouslySetInnerHTML={{ __html: content.our_faith || 'Click to Edit' }}></div>
           )}
         </div>
       </div>
@@ -143,7 +144,7 @@ function Home() {
                 onFocus={handleFocus}
               />
             ) : (
-              <p>{content.our_mission || 'Click to Edit'}</p>
+              <div dangerouslySetInnerHTML={{ __html: content.our_mission || 'Click to Edit' }}></div>
             )}
         </div>
       </div>
@@ -154,14 +155,14 @@ function Home() {
         </div>
         <div className="back">
           {currentUser ? (
-            <ReactQuill 
-              value={content.identity || ''} 
-              onChange={(newContent) => handleBlur(newContent, 'identity')}
-              onFocus={handleFocus}
-            />
-          ) : (
-            <p>{content.identity || 'Click to Edit'}</p>
-          )}
+              <ReactQuill 
+                value={content.identity || ''} 
+                onChange={(newContent) => handleBlur(newContent, 'identity')}
+                onFocus={handleFocus}
+              />
+            ) : (
+              <div dangerouslySetInnerHTML={{ __html: content.identity || 'Click to Edit' }}></div>
+            )}
         </div>
       </div>
       <div className={`white-box ${flipped[3] ? 'flipped' : ''}`} onClick={() => handleFlip(3)}>
@@ -177,7 +178,7 @@ function Home() {
                 onFocus={handleFocus}
               />
             ) : (
-              <p>{content.statement_of_faith || 'Click to Edit'}</p>
+              <div dangerouslySetInnerHTML={{ __html: content.statement_of_faith || 'Click to Edit' }}></div>
             )}
         </div>
       </div>
@@ -185,13 +186,13 @@ function Home() {
       <div className='statement-of-faith'>
         <h1>STATEMENT OF FAITH</h1>
         {currentUser ? (
-          <ReactQuill 
-            value={content.statement_of_faith_verse || ''} 
-            onChange={(newContent) => handleBlur(newContent, 'statement_of_faith_verse')}
-          />
-        ) : (
-          <p>{content.statement_of_faith_verse || 'Click to Edit'}</p>
-        )}
+            <ReactQuill 
+              value={content.statement_of_faith_verse || ''} 
+              onChange={(newContent) => handleBlur(newContent, 'statement_of_faith_verse')}
+            />
+          ) : (
+            <div dangerouslySetInnerHTML={{ __html: content.statement_of_faith_verse || 'Click to Edit' }}></div>
+          )}
       </div>
       <div style={{ height: '200px' }}>
       </div>
