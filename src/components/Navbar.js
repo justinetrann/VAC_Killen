@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from './img/logo.png';
 import './Navbar.css';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../context/AuthContext';
 import useToast from '../hooks/useToast';
 
 function Navbar() {

@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import logo from './img/logo.png';
 import './App.css';
-import { AuthProvider, useAuth } from './components/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 
 function Navbar() {
   const { currentUser, logout } = useAuth();
