@@ -206,8 +206,9 @@ body {
 
  .add-button {
   position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
+  top: 105%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
   cursor: pointer;
   padding: 10px 20px;
