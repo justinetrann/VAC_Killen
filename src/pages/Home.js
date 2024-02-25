@@ -146,8 +146,8 @@ function Home() {
               </div>
             </div>
           ))}
-          {currentUser && (
-              <input  className="add-button" type="file" onChange={handleImageUpload} />
+          {currentUser !== null && currentUser !== undefined && (
+              <input className="add-button" type="file" onChange={handleImageUpload} />
           )}
         </Slide>
       </div>
