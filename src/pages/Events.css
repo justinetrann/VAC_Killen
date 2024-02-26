@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap');
 
-.Events .navbar {
-  background-color: black;
-  color: white;
+.Events .form-container{
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;
+  flex-direction: column;
 }
 
-.Events h1 {
-  padding-top: 70px;
-  padding-left: 50px;
-  font-family: 'Judson', serif;
-  color: #801214;
+.Events .navbar {
+  position: absolute;
+  background-color: black;
+  top: 0;
+  width: 100%;
 }
 
 .Events .form, .events-form {
@@ -18,7 +21,7 @@
   background: #FFFFFF;
   border-radius: 10px;
   max-width: 360px;
-  margin: 20px auto;
+  margin: 0 auto;
   padding: 45px;
   text-align: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);

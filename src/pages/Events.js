@@ -99,13 +99,15 @@ function Events() {
     <div className="Events">
       <Navbar />
       {user && (
-        <div className="form">
-          <form onSubmit={handleSubmit}>
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Event Title" required />
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-            <input type="file" multiple onChange={handleFileChange} />
-            <button type="submit">Submit</button>
-          </form>
+        <div className="form-container">
+          <div className="form">
+            <form onSubmit={handleSubmit}>
+              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Event Title" required />
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+              <input type="file" multiple onChange={handleFileChange} />
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
       )}
       <div className="event-gallery">
