@@ -182,12 +182,12 @@ function Sermon() {
          </div>
 
          <div className="form-group">
-            <label htmlFor="scheduleFile">Schedule (PDF, DOC, DOCX):</label>
+            <label htmlFor="scheduleFile">Schedule (PDF for Viewer):</label>
             <input id="scheduleFile" name="scheduleFile" type="file" accept=".pdf,.doc,.docx"/>
          </div>
 
          <div className="form-group">
-            <label htmlFor="lessonFile">Lesson (PDF, DOC, DOCX):</label>
+            <label htmlFor="lessonFile">Lesson (PDF for Viewer):</label>
             <input id="lessonFile" name="lessonFile" type="file" accept=".pdf,.doc,.docx"/>
          </div>
 

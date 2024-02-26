@@ -17,16 +17,19 @@
    height: 100%;
  }
 
-.form, .sermon-form {
-   position: relative;
-   z-index: 1051; 
-   background: #FFFFFF;
-   border-radius: 10px;
-   max-width: 360px;
-   margin: 0 auto 100px;
-   padding: 45px;
-   text-align: center;
-   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+ .form, .sermon-form {
+  position: absolute;
+  z-index: 1051; 
+  background: #FFFFFF;
+  border-radius: 10px;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
  
 .form input, .sermon-form input, .sermon-form select {
