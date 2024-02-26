@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import Navbar from '../components/Navbar';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import Slider from "react-slick";
+import Navbar from '../components/Navbar';
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import './Events.css';
 
 const firebaseConfig = {
@@ -27,7 +30,15 @@ function Events() {
   const [date, setDate] = useState('');
   const [photos, setPhotos] = useState([]);
   const [events, setEvents] = useState([]);
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true,
+  };
+  
   const fetchEvents = useCallback(async () => {
     if (!user) return; // Ensure there's a logged-in user
   
@@ -140,9 +151,13 @@ function Events() {
             <h2>{event.title}</h2>
             <p>{event.date}</p>
             <div className="photos">
-              {event.photoUrls?.map((url, index) => (
-                <img key={index} src={url} alt={`Event ${event.title}`} />
-              ))}
+              <Slider {...settings}> {/* Use Slider here */}
+                {event.photoUrls?.map((url, index) => (
+                  <div key={index}>
+                    <img src={url} alt={`Event ${event.title}`} />
+                  </div>
+                ))}
+              </Slider>
             </div>
           </div>
         ))}
