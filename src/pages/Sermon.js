@@ -6,6 +6,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import { getFirestore, collection, addDoc, query, onSnapshot } from '@firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
+import useToast from '../hooks/useToast';
 import './Sermon.css';
 
 const firebaseConfig = {
@@ -29,6 +30,7 @@ function Sermon() {
   const [errorMessage, setErrorMessage] = useState("");
   const [sortCriteria, setSortCriteria] = useState('date');
   const [sortDirection, setSortDirection] = useState('asc');
+  const { isShowing, message, showToast } = useToast();
 
   useEffect(() => {
    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -62,6 +64,9 @@ function Sermon() {
      return; // Exit the function early
    }
 
+   setShowForm(false);
+   showToast('Please wait for files to be loaded. Refresh the page after a successful submission notification.');
+
    try {
      // Upload Schedule
      const scheduleRef = ref(storage, `schedules/${scheduleFile.files[0].name}`);
@@ -91,6 +96,7 @@ function Sermon() {
      // Clear form and reset any error messages
      event.target.reset();
      setErrorMessage(""); // Clear any previous error messages
+     showToast('Upload successful! Please refresh the page.');
    } catch (error) {
      console.error("Error submitting form: ", error);
      setErrorMessage("An error occurred while submitting the form. Please try again."); // Set error message
@@ -98,10 +104,8 @@ function Sermon() {
  };
 
  const toggleFormVisibility = () => {
-   if (user) {
-     setShowForm(!showForm);
-     document.body.classList.toggle('no-scroll', !showForm);
-   }
+   setShowForm(!showForm);
+   document.body.classList.toggle('no-scroll', !showForm);
  };
  
  const sortSermons = (sermons) => {
@@ -140,6 +144,7 @@ function Sermon() {
         </select>
       </div>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {isShowing && <div className="toast-message">{message}</div>}
       {showForm && <div className="overlay" onClick={() => setShowForm(false)}></div>}
       <div className="sermon-content">
       {showForm && user && (
