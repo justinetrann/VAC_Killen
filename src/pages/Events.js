@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan, faImage } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc, deleteDoc } from "firebase/firestore";
@@ -32,6 +32,7 @@ function Events() {
   const [date, setDate] = useState('');
   const [photos, setPhotos] = useState([]);
   const [events, setEvents] = useState([]);
+  const [isFormVisible, setIsFormVisible] = useState(false);
   const settings = {
     dots: true,
     infinite: true,
@@ -128,37 +129,48 @@ function Events() {
     }
   };
 
+  const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
+
   return (
     <div className="Events">
       <Navbar />
       {user && (
-        <div className="form-container">
-          <div className="form">
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Event Title"
-                required
-              />
-              <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
-              <input
-                type="file"
-                multiple
-                onChange={handleFileChange}
-              />
-              {/* Display the count of selected photos */}
-              <p>{photos.length} photo(s) selected</p>
-              <button type="submit">Submit</button>
-            </form>
-          </div>
+        <>
+        <div className="white-box" onClick={toggleFormVisibility}>
+          <FontAwesomeIcon icon={faImage} />
         </div>
+        {isFormVisible && (
+          <div className="form-overlay">
+            <div className="form-container">
+              <div className="form">
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Event Title"
+                    required
+                  />
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                  />
+                  <input
+                    type="file"
+                    multiple
+                    onChange={handleFileChange}
+                  />
+                  {/* Display the count of selected photos */}
+                  <p>{photos.length} photo(s) selected</p>
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
       )}
       <div className="event-gallery">
         {events.map((event) => (
