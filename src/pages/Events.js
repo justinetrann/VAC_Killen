@@ -183,11 +183,9 @@ function Events() {
       <div className="event-details">
         {selectedDate && (
           <div>
-            <h2>{selectedDate}</h2>
             {events.filter(event => event.date === selectedDate).map((event) => (
               <div key={event.id} className="event">
-                <h3>{event.date}</h3>
-                <p>{event.title}</p>
+                <h2>{event.title}</h2>
                 <div className="photos">
                   <Slider {...settings} className="my-slider">
                     {event.photoUrls?.map((url, index) => (

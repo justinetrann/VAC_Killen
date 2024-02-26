@@ -159,3 +159,15 @@
   align-items: center;
   z-index: 10;
 }
+
+.date {
+  text-align: center;
+  cursor: pointer;
+}
+
+.Events .event-details {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
