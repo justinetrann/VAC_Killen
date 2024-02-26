@@ -171,39 +171,39 @@ function Events() {
     <div className="Events">
       <Navbar />
       <h1>Events</h1>
-      <div className="dates-slider">
-        <Slider {...settings}>
+      <div className="events-container">
+        <div className="dates-list">
           {dates.map((date, index) => (
             <div key={index} className="date" onClick={() => handleDateClick(date)}>
               {date}
             </div>
           ))}
-        </Slider>
-      </div>
-      <div className="event-details">
-        {selectedDate && (
-          <div>
-            {events.filter(event => event.date === selectedDate).map((event) => (
-              <div key={event.id} className="event">
-                <h2>{event.title}</h2>
-                <div className="photos">
-                  <Slider {...settings} className="my-slider">
-                    {event.photoUrls?.map((url, index) => (
-                      <div key={index}>
-                        <img src={url} alt={`Event ${event.title}`} />
-                      </div>
-                    ))}
-                  </Slider>
+        </div>
+        <div className="event-details">
+          {selectedDate && (
+            <div>
+              {events.filter(event => event.date === selectedDate).map((event) => (
+                <div key={event.id} className="event">
+                  <h2>{event.title}</h2>
+                  <div className="photos">
+                    <Slider {...settings} className="my-slider">
+                      {event.photoUrls?.map((url, index) => (
+                        <div key={index}>
+                          <img src={url} alt={`Event ${event.title}`} />
+                        </div>
+                      ))}
+                    </Slider>
+                  </div>
+                  {user && (
+                    <button className="delete-event-button" onClick={() => deleteEvent(event.id)}>
+                      <FontAwesomeIcon icon={faTrashCan} /> Delete
+                    </button>
+                  )}
                 </div>
-                {user && (
-                  <button className="delete-event-button" onClick={() => deleteEvent(event.id)}>
-                    <FontAwesomeIcon icon={faTrashCan} /> Delete
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       {user && (
         <>
