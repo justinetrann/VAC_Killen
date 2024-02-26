@@ -196,7 +196,7 @@ const handleLessonClick = (url) => {
          </div>
 
          <div className="form-group">
-            <label htmlFor="lessonFile">Lesson ():</label>
+            <label htmlFor="lessonFile">Lesson (PDF for Viewer):</label>
             <input id="lessonFile" name="lessonFile" type="file" accept=".pdf,.doc,.docx"/>
          </div>
 
@@ -249,9 +249,7 @@ const handleLessonClick = (url) => {
       {currentPdfUrl && (
         <>
         <iframe src={currentPdfUrl} className="pdf-viewer" title="PDF Viewer"></iframe>
-        <button className="clear-view-button" onClick={() => setCurrentPdfUrl('')}>
-          Clear View
-        </button>
+        <button className="clear-view-button" onClick={() => setCurrentPdfUrl('')}>Clear View</button>
         </>
       )}
      </div>
