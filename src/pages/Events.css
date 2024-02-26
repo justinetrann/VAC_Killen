@@ -165,6 +165,10 @@
   cursor: pointer;
 }
 
+.date:hover {
+  color: blue;
+}
+
 .Events .event-details {
   display: flex;
   justify-content: center;
