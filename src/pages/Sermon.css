@@ -13,9 +13,8 @@
 }
 
 .no-scroll {
-   overflow: hidden;
-   height: 100%;
- }
+  overflow: hidden;
+}
 
 .Sermon .form, .sermon-form {
   position: absolute;
@@ -237,7 +236,6 @@
   border-radius: 5px;
   padding: 5px 10px;
   margin-top: 15px;
-  margin-bottom: 50px;
   margin-left: 84%;
   font-size: 12px; 
   cursor: pointer;
@@ -253,5 +251,5 @@
   height: 80%;
   width: 50%;
   left: 40%;
-  top: 30%;
+  top: 38%;
 }

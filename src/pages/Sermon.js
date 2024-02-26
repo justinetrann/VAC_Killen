@@ -107,18 +107,14 @@ function Sermon() {
    }
 };
 
-const handleScheduleClick = (url) => {
-  setCurrentPdfUrl(url);
+const toggleFormVisibility = () => {
+  setShowForm(!showForm);
+  if (!showForm) {
+    document.body.classList.add('no-scroll');
+  } else {
+    document.body.classList.remove('no-scroll');
+  }
 };
-
-const handleLessonClick = (url) => {
-  setCurrentPdfUrl(url);
-};
-
- const toggleFormVisibility = () => {
-   setShowForm(!showForm);
-   document.body.classList.toggle('no-scroll', !showForm);
- };
  
  const deleteSermon = async (sermonId) => {
    if (!user) {
@@ -176,6 +172,12 @@ const handleLessonClick = (url) => {
           <option value="desc">Descending</option>
         </select>
       </div>
+      {currentPdfUrl && (
+        <>
+        <iframe src={currentPdfUrl} className="pdf-viewer" title="PDF Viewer"></iframe>
+        <button className="clear-view-button" onClick={() => setCurrentPdfUrl('')}>Clear View</button>
+        </>
+      )}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       {isShowing && <div className="toast-message">{message}</div>}
       {showForm && <div className="overlay" onClick={() => setShowForm(false)}></div>}
@@ -245,12 +247,6 @@ const handleLessonClick = (url) => {
          <div className="toggle-form-icon" onClick={toggleFormVisibility}>
             <FontAwesomeIcon icon={faFolder} />
          </div>
-      )}
-      {currentPdfUrl && (
-        <>
-        <iframe src={currentPdfUrl} className="pdf-viewer" title="PDF Viewer"></iframe>
-        <button className="clear-view-button" onClick={() => setCurrentPdfUrl('')}>Clear View</button>
-        </>
       )}
      </div>
    </div>
