@@ -199,9 +199,11 @@ function Sermon() {
          </div>
       </div>
       ))}
-      <div className="toggle-form-icon" onClick={toggleFormVisibility}>
-         <FontAwesomeIcon icon={faFolder} />
-      </div>
+      {user && (
+         <div className="toggle-form-icon" onClick={toggleFormVisibility}>
+            <FontAwesomeIcon icon={faFolder} />
+         </div>
+      )}
      </div>
    </div>
  );
