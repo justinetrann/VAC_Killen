@@ -28,10 +28,12 @@ const storage = getStorage(app);
 
 function Events() {
   const [user, setUser] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
   const [photos, setPhotos] = useState([]);
   const [events, setEvents] = useState([]);
+  const [dates, setDates] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const settings = {
     dots: true,
@@ -49,6 +51,7 @@ function Events() {
     const q = query(collection(db, "events"), where("userId", "==", user.uid));
     const querySnapshot = await getDocs(q);
     const loadedEvents = [];
+    const loadedDates = new Set();
     for (const doc of querySnapshot.docs) {
       const eventData = doc.data();
       eventData.id = doc.id;
@@ -59,8 +62,10 @@ function Events() {
       }));
       eventData.photoUrls = photoURLs;
       loadedEvents.push(eventData);
+      loadedDates.add(eventData.date);
     }
     setEvents(loadedEvents);
+    setDates(Array.from(loadedDates).sort());
   }, [user]);
 
   useEffect(() => {
@@ -69,11 +74,14 @@ function Events() {
       const q = query(collection(db, "events"));
       const querySnapshot = await getDocs(q);
       const loadedEvents = [];
+      const loadedDates = new Set();
       querySnapshot.forEach((doc) => {
         const eventData = { id: doc.id, ...doc.data() };
         loadedEvents.push(eventData);
+        loadedDates.add(eventData.date);
       });
       setEvents(loadedEvents);
+      setDates(Array.from(loadedDates).sort());
     };
   
     fetchAllEvents(); // Fetch events when the component mounts
@@ -89,7 +97,11 @@ function Events() {
   
     // Cleanup subscription on component unmount
     return () => unsubscribe();
-  }, []); // Empty dependency array to run only once on component mount
+  }, []); 
+
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -159,66 +171,80 @@ function Events() {
     <div className="Events">
       <Navbar />
       <h1>Events</h1>
-      {user && (
-        <>
-        <div className="white-box" onClick={toggleFormVisibility}>
-          <FontAwesomeIcon icon={faImage} />
-        </div>
-        {isFormVisible && (
-          <div className="form-overlay" onClick={handleOverlayClick}>
-          <div className="form-container" onClick={(e) => e.stopPropagation()}>
-              <div className="form">
-                <form onSubmit={handleSubmit}>
-                  <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Event Title"
-                    required
-                  />
-                  <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    required
-                  />
-                  <input
-                    type="file"
-                    multiple
-                    onChange={handleFileChange}
-                  />
-                  {/* Display the count of selected photos */}
-                  <p>{photos.length} photo(s) selected</p>
-                  <button type="submit">Submit</button>
-                </form>
-              </div>
+      <div className="dates-slider">
+        <Slider {...settings}>
+          {dates.map((date, index) => (
+            <div key={index} className="date" onClick={() => handleDateClick(date)}>
+              {date}
             </div>
+          ))}
+        </Slider>
+      </div>
+      <div className="event-details">
+        {selectedDate && (
+          <div>
+            <h2>{selectedDate}</h2>
+            {events.filter(event => event.date === selectedDate).map((event) => (
+              <div key={event.id} className="event">
+                <h3>{event.date}</h3>
+                <p>{event.title}</p>
+                <div className="photos">
+                  <Slider {...settings} className="my-slider">
+                    {event.photoUrls?.map((url, index) => (
+                      <div key={index}>
+                        <img src={url} alt={`Event ${event.title}`} />
+                      </div>
+                    ))}
+                  </Slider>
+                </div>
+                {user && (
+                  <button className="delete-event-button" onClick={() => deleteEvent(event.id)}>
+                    <FontAwesomeIcon icon={faTrashCan} /> Delete
+                  </button>
+                )}
+              </div>
+            ))}
           </div>
         )}
-      </>
-      )}
-      <div className="event-gallery">
-        {events.map((event) => (
-          <div key={event.id} className="event">
-            <h3>{event.date}</h3>
-            <p>{event.title}</p>
-            <div className="photos">
-            <Slider {...settings} className="my-slider">
-                {event.photoUrls?.map((url, index) => (
-                  <div key={index}>
-                    <img src={url} alt={`Event ${event.title}`} />
-                  </div>
-                ))}
-              </Slider>
-            </div>
-            {user && (
-              <button className="delete-event-button"  onClick={() => deleteEvent(event.id)}>
-               <FontAwesomeIcon icon={faTrashCan} /> Delete
-              </button>
-            )}
-          </div>
-        ))}
       </div>
+      {user && (
+        <>
+          <div className="white-box" onClick={toggleFormVisibility}>
+            <FontAwesomeIcon icon={faImage} />
+          </div>
+          {isFormVisible && (
+            <div className="form-overlay" onClick={handleOverlayClick}>
+              <div className="form-container" onClick={(e) => e.stopPropagation()}>
+                <div className="form">
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      placeholder="Event Title"
+                      required
+                    />
+                    <input
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
+                      required
+                    />
+                    <input
+                      type="file"
+                      multiple
+                      onChange={handleFileChange}
+                    />
+                    {/* Display the count of selected photos */}
+                    <p>{photos.length} photo(s) selected</p>
+                    <button type="submit">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
