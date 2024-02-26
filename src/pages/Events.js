@@ -5,7 +5,7 @@ import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Slider from "react-slick";
 import Navbar from '../components/Navbar';
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Events.css';
 
@@ -152,7 +152,7 @@ function Events() {
             <h3>{event.date}</h3>
             <p>{event.title}</p>
             <div className="photos">
-              <Slider {...settings}> {/* Use Slider here */}
+            <Slider {...settings} className="my-slider">
                 {event.photoUrls?.map((url, index) => (
                   <div key={index}>
                     <img src={url} alt={`Event ${event.title}`} />

@@ -85,3 +85,16 @@
   margin-top: 10px;
   border-radius: 5px;
 }
+
+.my-slider .slick-prev,
+.my-slider .slick-next {
+    z-index: 1;
+}
+
+.my-slider .slick-prev {
+    left: calc(50% - 160px);
+}
+
+.my-slider .slick-next {
+    right: calc(50% - 160px);
+}
