@@ -194,3 +194,14 @@
    border-radius: 5px;
    z-index: 1060;
  }
+
+ .delete-sermon-button {
+   font-family: 'Comfortaa', cursive;
+   margin-top: 10px;
+   background-color: transparent;
+   cursor: pointer;
+ }
+ 
+ .delete-sermon-button:hover {
+   color: darkred;
+ }

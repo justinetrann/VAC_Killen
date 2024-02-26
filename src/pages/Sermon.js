@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faNoteSticky, faFolder } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faNoteSticky, faFolder,faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import Navbar from '../components/Navbar';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import { getFirestore, collection, addDoc, query, onSnapshot } from '@firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from '@firebase/storage';
+import { doc, deleteDoc } from '@firebase/firestore';
 import useToast from '../hooks/useToast';
 import './Sermon.css';
 
@@ -110,6 +111,27 @@ function Sermon() {
    document.body.classList.toggle('no-scroll', !showForm);
  };
  
+ const deleteSermon = async (sermonId) => {
+   if (!user) {
+     showToast("You must be logged in to delete sermons.");
+     return;
+   }
+ 
+   const confirmDelete = window.confirm("Are you sure you want to delete this sermon?");
+   if (confirmDelete) {
+     try {
+       await deleteDoc(doc(db, "sermons", sermonId));
+       showToast("Sermon deleted successfully.");
+       // Optionally, refresh the sermons list after deletion
+       const updatedSermons = sermons.filter(sermon => sermon.id !== sermonId);
+       setSermons(updatedSermons);
+     } catch (error) {
+       console.error("Error deleting sermon: ", error);
+       showToast("Failed to delete sermon. Please try again.");
+     }
+   }
+ };
+
  const sortSermons = (sermons) => {
    return sermons.sort((a, b) => {
      if (sortCriteria === 'date') {
@@ -199,6 +221,11 @@ function Sermon() {
             </audio>
             </div>
          </div>
+         {user && (
+            <button className="delete-sermon-button" onClick={() => deleteSermon(sermon.id)}>
+               <FontAwesomeIcon icon={faTrashCan} /> Delete
+            </button>
+         )}
       </div>
       ))}
       {user && (
