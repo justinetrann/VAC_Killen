@@ -17,7 +17,7 @@
    height: 100%;
  }
 
- .form, .sermon-form {
+.Sermon .form, .sermon-form {
   position: absolute;
   z-index: 1051; 
   background: #FFFFFF;
@@ -27,7 +27,7 @@
   padding: 45px;
   text-align: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  top: 50%; 
+  top: 70%; 
   left: 50%;
   transform: translate(-50%, -50%);
 }
