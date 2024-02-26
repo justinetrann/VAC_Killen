@@ -37,8 +37,9 @@ function Events() {
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: true,
+    arrows: true,
   };
-  
+
   const fetchEvents = useCallback(async () => {
     if (!user) return; // Ensure there's a logged-in user
   
@@ -148,8 +149,8 @@ function Events() {
       <div className="event-gallery">
         {events.map((event) => (
           <div key={event.id} className="event">
-            <h2>{event.title}</h2>
-            <p>{event.date}</p>
+            <h3>{event.date}</h3>
+            <p>{event.title}</p>
             <div className="photos">
               <Slider {...settings}> {/* Use Slider here */}
                 {event.photoUrls?.map((url, index) => (
