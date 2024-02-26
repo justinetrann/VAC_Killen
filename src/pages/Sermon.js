@@ -213,11 +213,19 @@ const handleLessonClick = (url) => {
          <div className="sermon-date">{sermon.date}</div>
          <div className="sermon-title">{sermon.title}</div>
          <div className="sermon-files">
-            {sermon.scheduleUrl && (
-                <button onClick={() => handleScheduleClick(sermon.scheduleUrl)}>View Schedule</button>
-            )}
-            {sermon.lessonUrl && (
-                <button onClick={() => handleLessonClick(sermon.lessonUrl)}>View Lesson</button>
+         {sermon.scheduleUrl && (
+            <div>
+              <button className="view-pdf-button" onClick={() => setCurrentPdfUrl(sermon.scheduleUrl)}>
+                <FontAwesomeIcon icon={faCalendar} /> View Schedule
+              </button>
+            </div>
+          )}
+          {sermon.lessonUrl && (
+            <div>
+              <button className="view-pdf-button" onClick={() => setCurrentPdfUrl(sermon.lessonUrl)}>
+                <FontAwesomeIcon icon={faNoteSticky} /> View Lesson
+              </button>
+            </div>
             )}
             <div>
             <audio controls>
@@ -239,7 +247,12 @@ const handleLessonClick = (url) => {
          </div>
       )}
       {currentPdfUrl && (
+        <>
         <iframe src={currentPdfUrl} className="pdf-viewer" title="PDF Viewer"></iframe>
+        <button className="view-pdf-button" onClick={() => setCurrentPdfUrl('')}>
+          Clear View
+        </button>
+        </>
       )}
      </div>
    </div>

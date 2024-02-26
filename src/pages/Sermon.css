@@ -208,3 +208,21 @@
  .delete-sermon-button:hover {
    color: darkred;
  }
+
+ .form button, .sermon-form button, .view-pdf-button {
+  font-family: 'Comfortaa', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  background: #801214;
+  border: 0;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.view-pdf-button:hover {
+  background:#b34345;
+}
