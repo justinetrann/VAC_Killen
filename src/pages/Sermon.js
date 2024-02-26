@@ -57,51 +57,53 @@ function Sermon() {
    event.preventDefault();
    const { title, date, scheduleFile, lessonFile, audioFile } = event.target.elements;
 
-   // Simple validation for file inputs
-   if (!scheduleFile.files[0] || !lessonFile.files[0] || !audioFile.files[0]) {
-     setErrorMessage("Please select all files before submitting."); // Set error message
-     console.error("Please select all files before submitting.");
-     return; // Exit the function early
-   }
+   setShowForm(false); // Hide the form immediately after submission
+   showToast('Please wait for the upload to complete.');
 
-   setShowForm(false);
-   showToast('Please wait for files to be loaded. Refresh the page after a successful submission notification.');
+   let scheduleUrl = '', lessonUrl = '', audioUrl = '';
 
    try {
-     // Upload Schedule
-     const scheduleRef = ref(storage, `schedules/${scheduleFile.files[0].name}`);
-     const uploadSchedule = await uploadBytes(scheduleRef, scheduleFile.files[0]);
-     const scheduleUrl = await getDownloadURL(uploadSchedule.ref);
+     // Conditionally Upload Schedule if selected
+     if (scheduleFile.files[0]) {
+       const scheduleRef = ref(storage, `schedules/${scheduleFile.files[0].name}`);
+       const uploadSchedule = await uploadBytes(scheduleRef, scheduleFile.files[0]);
+       scheduleUrl = await getDownloadURL(uploadSchedule.ref);
+     }
 
-     // Upload Lesson
-     const lessonRef = ref(storage, `lessons/${lessonFile.files[0].name}`);
-     const uploadLesson = await uploadBytes(lessonRef, lessonFile.files[0]);
-     const lessonUrl = await getDownloadURL(uploadLesson.ref);
+     // Conditionally Upload Lesson if selected
+     if (lessonFile.files[0]) {
+       const lessonRef = ref(storage, `lessons/${lessonFile.files[0].name}`);
+       const uploadLesson = await uploadBytes(lessonRef, lessonFile.files[0]);
+       lessonUrl = await getDownloadURL(uploadLesson.ref);
+     }
 
-     // Upload Audio
-     const audioRef = ref(storage, `audios/${audioFile.files[0].name}`);
-     const uploadAudio = await uploadBytes(audioRef, audioFile.files[0]);
-     const audioUrl = await getDownloadURL(uploadAudio.ref);
+     // Conditionally Upload Audio if selected
+     if (audioFile.files[0]) {
+       const audioRef = ref(storage, `audios/${audioFile.files[0].name}`);
+       const uploadAudio = await uploadBytes(audioRef, audioFile.files[0]);
+       audioUrl = await getDownloadURL(uploadAudio.ref);
+     }
 
-     // Add document to Firestore with all URLs
+     // Add document to Firestore with all URLs (even if some are empty)
      await addDoc(collection(db, "sermons"), {
        title: title.value,
        date: date.value,
        scheduleUrl,
        lessonUrl,
        audioUrl,
-       userId: user.uid, // Associate the sermon with the current user
+       userId: user ? user.uid : null, // Associate the sermon with the current user if logged in
      });
 
-     // Clear form and reset any error messages
+     // Clear form, reset error messages, and show success toast
      event.target.reset();
      setErrorMessage(""); // Clear any previous error messages
      showToast('Upload successful! Please refresh the page.');
    } catch (error) {
      console.error("Error submitting form: ", error);
      setErrorMessage("An error occurred while submitting the form. Please try again."); // Set error message
+     showToast("An error occurred. Please try again."); // Show error toast
    }
- };
+};
 
  const toggleFormVisibility = () => {
    setShowForm(!showForm);
