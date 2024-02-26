@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap');
 
+.Events h1{
+  padding-top: 70px;
+  padding-left: 50px;
+  font-family: 'Judson', serif;
+  color: #801214;
+}
+
 .Events .form-container{
   display: flex;
   justify-content: center;

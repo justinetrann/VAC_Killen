@@ -142,6 +142,7 @@ function Events() {
   return (
     <div className="Events">
       <Navbar />
+      <h1>Events</h1>
       {user && (
         <>
         <div className="white-box" onClick={toggleFormVisibility}>
