@@ -64,16 +64,32 @@ function Events() {
   }, [user]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const fetchAllEvents = async () => {
+      // Assuming events are not user-specific or you have a fallback to fetch general events
+      const q = query(collection(db, "events"));
+      const querySnapshot = await getDocs(q);
+      const loadedEvents = [];
+      querySnapshot.forEach((doc) => {
+        const eventData = { id: doc.id, ...doc.data() };
+        loadedEvents.push(eventData);
+      });
+      setEvents(loadedEvents);
+    };
+  
+    fetchAllEvents(); // Fetch events when the component mounts
+  
+    // Listen for auth state changes to handle user-specific data if needed
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        await fetchEvents();
       } else {
         setUser(null);
-        setEvents([]);
       }
     });
-  }, [fetchEvents]);
+  
+    // Cleanup subscription on component unmount
+    return () => unsubscribe();
+  }, []); // Empty dependency array to run only once on component mount
 
   const handleSubmit = async (e) => {
     e.preventDefault();
