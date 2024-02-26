@@ -63,33 +63,40 @@ function Events() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) return; // Ensure there's a logged-in user
-  
+
+    // Check if the user has selected more than 50 photos
+    if (photos.length > 50) {
+      alert("You can only upload up to 50 photos.");
+      return; // Stop the function execution
+    }
+
     // Add event to Firestore
     const docRef = await addDoc(collection(db, "events"), {
       title,
       date,
       userId: user.uid,
     });
-  
-    const photosUrls = await Promise.all([...photos].map(async (photo) => {
+
+      const photosUrls = await Promise.all([...photos].map(async (photo) => {
       const photoRef = ref(storage, `events/${docRef.id}/${photo.name}`);
       await uploadBytes(photoRef, photo);
       return getDownloadURL(photoRef);
     }));
-  
+
     // Update the event with photo URLs
     await updateDoc(doc(db, "events", docRef.id), {
       photoUrls: photosUrls
     });
-  
+
     // Reset form fields
     setTitle('');
     setDate('');
     setPhotos([]);
-  
+
     // Refresh the events displayed in the UI
     await fetchEvents(); // This is where you place it
   };
+
   
   const handleFileChange = (e) => {
     setPhotos(e.target.files); // Update the photos state with the selected files
@@ -102,9 +109,26 @@ function Events() {
         <div className="form-container">
           <div className="form">
             <form onSubmit={handleSubmit}>
-              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Event Title" required />
-              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-              <input type="file" multiple onChange={handleFileChange} />
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Event Title"
+                required
+              />
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+              <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+              />
+              {/* Display the count of selected photos */}
+              <p>{photos.length} photo(s) selected</p>
               <button type="submit">Submit</button>
             </form>
           </div>
