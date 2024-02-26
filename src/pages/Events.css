@@ -86,19 +86,18 @@
 }
 
 .my-slider .slick-slide {
-  height: 300px; /* Adjust based on your desired fixed height */
-  width: 100%; /* Adjust if you want a specific width, otherwise it takes full width of the container */
+  height: 300px;
+  width: 100%;
 }
 
 .my-slider .slick-slide img {
-  width: 100%; /* Ensure the image covers the full width of the slide */
-  height: 100%; /* Ensure the image covers the full height of the slide */
-  object-fit: cover; /* Cover the slide area without losing aspect ratio; use 'contain' if you don't want images to be cropped */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Ensure the slider container itself has a fixed height if necessary */
 .my-slider {
-  height: 300px; /* Match the slide height or adjust as needed */
+  height: 300px;
 }
 
 .my-slider .slick-prev,
@@ -112,4 +111,11 @@
 
 .my-slider .slick-next {
     right: calc(50% - 160px);
+}
+
+.delete-event-button{
+  font-family: 'Comfortaa', cursive;
+  margin-top: 10%;
+  background-color: transparent;
+  cursor: pointer;
 }

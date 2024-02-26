@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc } from "firebase/firestore";
+import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc, deleteDoc } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Slider from "react-slick";
 import Navbar from '../components/Navbar';
@@ -114,6 +116,18 @@ function Events() {
     setPhotos(e.target.files); // Update the photos state with the selected files
   };
 
+  const deleteEvent = async (eventId) => {
+    if (!user) return; // Ensure there's a logged-in user
+
+    // Confirm before deleting
+    if (window.confirm("Are you sure you want to delete this event?")) {
+      await deleteDoc(doc(db, "events", eventId));
+
+      // Update the UI by filtering out the deleted event
+      setEvents(events.filter(event => event.id !== eventId));
+    }
+  };
+
   return (
     <div className="Events">
       <Navbar />
@@ -160,6 +174,11 @@ function Events() {
                 ))}
               </Slider>
             </div>
+            {user && (
+              <button className="delete-event-button"  onClick={() => deleteEvent(event.id)}>
+               <FontAwesomeIcon icon={faTrashCan} /> Delete
+              </button>
+            )}
           </div>
         ))}
       </div>
