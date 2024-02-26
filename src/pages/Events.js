@@ -131,6 +131,14 @@ function Events() {
 
   const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
 
+  const setFormVisibility = (isVisible) => {
+    setIsFormVisible(isVisible);
+  };
+
+  const handleOverlayClick = () => {
+    setFormVisibility(false);
+  };
+
   return (
     <div className="Events">
       <Navbar />
@@ -140,8 +148,8 @@ function Events() {
           <FontAwesomeIcon icon={faImage} />
         </div>
         {isFormVisible && (
-          <div className="form-overlay">
-            <div className="form-container">
+          <div className="form-overlay" onClick={handleOverlayClick}>
+          <div className="form-container" onClick={(e) => e.stopPropagation()}>
               <div className="form">
                 <form onSubmit={handleSubmit}>
                   <input
