@@ -40,7 +40,7 @@ function Navbar() {
         <div className="nav-links">
           <Link to="#about">About</Link>
           <Link to="/sermons">Sermons</Link>
-          <Link to="#events">Events</Link>
+          <Link to="/events">Events</Link>
           <Link to="#contact">Contact</Link>
           {currentUser ? (
             <button onClick={handleLogout}>Logout</button>
