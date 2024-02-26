@@ -177,8 +177,8 @@ function Sermon() {
        )}
       {sortedSermons.map(sermon => (
       <div key={sermon.id} className="sermon-item">
-         <div className="sermon-date">Date: {sermon.date}</div>
-         <div className="sermon-title">Title: {sermon.title}</div>
+         <div className="sermon-date">{sermon.date}</div>
+         <div className="sermon-title">{sermon.title}</div>
          <div className="sermon-files">
             {sermon.scheduleUrl && (
             <a href={sermon.scheduleUrl} download target="_blank" rel="noopener noreferrer">
