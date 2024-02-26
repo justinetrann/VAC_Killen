@@ -227,3 +227,29 @@
 .view-pdf-button:hover {
   background:#b34345;
 }
+
+.clear-view-button {
+  font-family: 'Comfortaa', cursive;
+  text-transform: uppercase;
+  background: #801214;
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 3%;
+  font-size: 12px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-view-button:hover {
+  background-color: #b34345;
+}
+
+.pdf-viewer{
+  position: absolute;
+  height: 80%;
+  width: 50%;
+  left: 40%;
+  top: 30%;
+}

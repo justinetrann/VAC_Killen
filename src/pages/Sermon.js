@@ -249,7 +249,7 @@ const handleLessonClick = (url) => {
       {currentPdfUrl && (
         <>
         <iframe src={currentPdfUrl} className="pdf-viewer" title="PDF Viewer"></iframe>
-        <button className="view-pdf-button" onClick={() => setCurrentPdfUrl('')}>
+        <button className="clear-view-button" onClick={() => setCurrentPdfUrl('')}>
           Clear View
         </button>
         </>
