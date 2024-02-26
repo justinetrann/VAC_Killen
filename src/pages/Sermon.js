@@ -32,6 +32,7 @@ function Sermon() {
   const [sortCriteria, setSortCriteria] = useState('date');
   const [sortDirection, setSortDirection] = useState('asc');
   const { isShowing, message, showToast } = useToast();
+  const [currentPdfUrl, setCurrentPdfUrl] = useState('');
 
   useEffect(() => {
    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -104,6 +105,14 @@ function Sermon() {
      setErrorMessage("An error occurred while submitting the form. Please try again."); // Set error message
      showToast("An error occurred. Please try again."); // Show error toast
    }
+};
+
+const handleScheduleClick = (url) => {
+  setCurrentPdfUrl(url);
+};
+
+const handleLessonClick = (url) => {
+  setCurrentPdfUrl(url);
 };
 
  const toggleFormVisibility = () => {
@@ -187,7 +196,7 @@ function Sermon() {
          </div>
 
          <div className="form-group">
-            <label htmlFor="lessonFile">Lesson (PDF for Viewer):</label>
+            <label htmlFor="lessonFile">Lesson ():</label>
             <input id="lessonFile" name="lessonFile" type="file" accept=".pdf,.doc,.docx"/>
          </div>
 
@@ -205,14 +214,10 @@ function Sermon() {
          <div className="sermon-title">{sermon.title}</div>
          <div className="sermon-files">
             {sermon.scheduleUrl && (
-            <a href={sermon.scheduleUrl} download target="_blank" rel="noopener noreferrer">
-               <FontAwesomeIcon icon={faCalendar} /> Schedule
-            </a>
+                <button onClick={() => handleScheduleClick(sermon.scheduleUrl)}>View Schedule</button>
             )}
             {sermon.lessonUrl && (
-            <a href={sermon.lessonUrl} download target="_blank" rel="noopener noreferrer">
-               <FontAwesomeIcon icon={faNoteSticky} /> Lesson
-            </a>
+                <button onClick={() => handleLessonClick(sermon.lessonUrl)}>View Lesson</button>
             )}
             <div>
             <audio controls>
@@ -232,6 +237,9 @@ function Sermon() {
          <div className="toggle-form-icon" onClick={toggleFormVisibility}>
             <FontAwesomeIcon icon={faFolder} />
          </div>
+      )}
+      {currentPdfUrl && (
+        <iframe src={currentPdfUrl} className="pdf-viewer" title="PDF Viewer"></iframe>
       )}
      </div>
    </div>
