@@ -104,7 +104,7 @@
    z-index: 1050; /* Ensure it's above the overlay */
  }
  
- .overlay {
+.Sermon .overlay {
    position: fixed;
    top: 0;
    left: 0;
@@ -151,4 +151,34 @@
  
  .fa-calendar, .fa-note-sticky, .fa-music {
    margin-right: 8px;
+ }
+
+ .sort-options {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 20px;
+ }
+ 
+ .sort-options select {
+   font-family: 'Comfortaa', cursive;
+   background: #f2f2f2;
+   border: 2px solid #801214; 
+   color: #333;
+   padding: 10px;
+   margin: 0 10px;
+   border-radius: 5px;
+   cursor: pointer;
+   outline: none;
+ }
+ 
+ .sort-options select:focus {
+   background: #dbdbdb;
+ }
+ 
+ .sort-options select:hover {
+   background: #dbdbdb;
+ }
+ 
+ .sort-options option {
+   background: white;
  }
