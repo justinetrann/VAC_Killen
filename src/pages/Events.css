@@ -74,7 +74,6 @@
   border-radius: 10px;
   margin: 20px;
   padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   max-width: 360px;
   text-align: center;
 }
@@ -84,6 +83,22 @@
   height: auto;
   margin-top: 10px;
   border-radius: 5px;
+}
+
+.my-slider .slick-slide {
+  height: 300px; /* Adjust based on your desired fixed height */
+  width: 100%; /* Adjust if you want a specific width, otherwise it takes full width of the container */
+}
+
+.my-slider .slick-slide img {
+  width: 100%; /* Ensure the image covers the full width of the slide */
+  height: 100%; /* Ensure the image covers the full height of the slide */
+  object-fit: cover; /* Cover the slide area without losing aspect ratio; use 'contain' if you don't want images to be cropped */
+}
+
+/* Ensure the slider container itself has a fixed height if necessary */
+.my-slider {
+  height: 300px; /* Match the slide height or adjust as needed */
 }
 
 .my-slider .slick-prev,
