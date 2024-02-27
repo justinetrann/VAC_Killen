@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Contact.css';
 import Navbar from '../components/Navbar';
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
@@ -19,100 +19,99 @@ const db = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
 
 function Contact() {
-   const [userEmail, setUserEmail] = useState(''); // Email from Firebase for logged-in users
-   const [contactEmail, setContactEmail] = useState(''); // Input email for logged-out users
-   const [contactTitle, setContactTitle] = useState('');
-   const [contactMessage, setContactMessage] = useState('');
-   const [newEmail, setNewEmail] = useState('');
-   const [user, setUser] = useState(null); // State to keep track of the current user
-
-   useEffect(() => {
-       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-           setUser(currentUser);
-           if (currentUser) {
-               const fetchEmail = async () => {
-                   const docRef = doc(db, "users", currentUser.uid);
-                   const docSnap = await getDoc(docRef);
-                   if (docSnap.exists()) {
-                       setUserEmail(docSnap.data().email);
-                   } else {
-                       console.log("No such document!");
-                   }
-               };
-               fetchEmail();
-           }
-       });
-
-       return () => unsubscribe();
-   }, []);
-
-   const handleContactSubmit = (e) => {
-       e.preventDefault();
-       const emailToSend = user ? userEmail : contactEmail; // Use user's email if logged in, otherwise use input email
-
-       console.log(`Sending message from ${emailToSend} with title: ${contactTitle} and message: ${contactMessage}`);
-       // Here you would send the email to the address stored in Firebase, using emailToSend as the "From" or "Reply-To"
-   };
-
-   const handleEmailUpdate = async (e) => {
-       e.preventDefault();
-       if (user) {
-           await setDoc(doc(db, "users", user.uid), {
-               email: newEmail
-           }, { merge: true });
-           setUserEmail(newEmail);
-           setNewEmail('');
-       }
-   };
-
-   return (
-       <div className="contact">
-         < Navbar/>
-           <h1>Contact Us</h1>
-           <div className="contact-form">
+    const [contactEmail, setContactEmail] = useState('');
+    const [contactTitle, setContactTitle] = useState('');
+    const [contactMessage, setContactMessage] = useState('');
+    const [messages, setMessages] = useState([]);
+    const [user, setUser] = useState(null);
+  
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+        if (currentUser) {
+          fetchMessages();
+        }
+      });
+  
+      return () => unsubscribe();
+    }, []);
+  
+    const fetchMessages = async () => {
+      const q = query(collection(db, "messages"));
+      const querySnapshot = await getDocs(q);
+      const fetchedMessages = [];
+      querySnapshot.forEach((doc) => {
+        fetchedMessages.push({ id: doc.id, ...doc.data() });
+      });
+      setMessages(fetchedMessages);
+    };
+  
+    const handleContactSubmit = async (e) => {
+      e.preventDefault();
+      const messageData = {
+        email: contactEmail,
+        title: contactTitle,
+        message: contactMessage,
+        date: new Date()
+      };
+      await addDoc(collection(db, "messages"), messageData);
+      setContactEmail('');
+      setContactTitle('');
+      setContactMessage('');
+      alert("Message sent successfully!");
+    };
+  
+    const handleDeleteMessage = async (id) => {
+      await deleteDoc(doc(db, "messages", id));
+      fetchMessages(); // Refresh messages after deletion
+    };
+  
+    return (
+      <div className="contact">
+        <Navbar />
+        <h1>{user ? 'Inbox' : 'Contact Us'}</h1>
+        <div className="contact-form">
+          {!user && (
             <form onSubmit={handleContactSubmit}>
-                  {!user && (
-                     <input
-                        type="email"
-                        placeholder="Your Email"
-                        value={contactEmail}
-                        onChange={(e) => setContactEmail(e.target.value)}
-                        required
-                     />
-                  )}
-                  <input
-                     type="text"
-                     placeholder="Title"
-                     value={contactTitle}
-                     onChange={(e) => setContactTitle(e.target.value)}
-                     required
-                  />
-                  <textarea
-                     placeholder="Message"
-                     value={contactMessage}
-                     onChange={(e) => setContactMessage(e.target.value)}
-                     required
-                  ></textarea>
-                  <button type="submit">Send Message</button>
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={contactEmail}
+                onChange={(e) => setContactEmail(e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Title"
+                value={contactTitle}
+                onChange={(e) => setContactTitle(e.target.value)}
+                required
+              />
+              <textarea
+                placeholder="Message"
+                value={contactMessage}
+                onChange={(e) => setContactMessage(e.target.value)}
+                required
+              ></textarea>
+              <button type="submit">Send Message</button>
             </form>
-            {user && (
-                  <>
-                     <h2>Update Contact Email</h2>
-                     <form onSubmit={handleEmailUpdate}>
-                        <input
-                              type="email"
-                              placeholder="New Email"
-                              value={newEmail}
-                              onChange={(e) => setNewEmail(e.target.value)}
-                              required
-                        />
-                        <button type="submit">Update Email</button>
-                     </form>
-                  </>
-            )}
-           </div>
-       </div>
-   );
-}
-
-export default Contact;
+          )}
+          {user && (
+            <div>
+            {messages.map((message) => (
+                <div key={message.id}>
+                <p>Email: {message.email}</p>
+                <p>Title: {message.title}</p>
+                <p>Message: {message.message}</p>
+                <p>Date: {message.date.toDate().toString()}</p>
+                <button onClick={() => handleDeleteMessage(message.id)}>Delete</button>
+                </div>
+            ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+  
+  export default Contact;
