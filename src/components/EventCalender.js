@@ -76,19 +76,19 @@ const EventCalendar = () => {
   });
 
   const renderDayContent = ({ date, view }) => {
-  if (view === 'month') {
-    const dayEvents = events.filter(event => new Date(event.date).toDateString() === date.toDateString());
-    if (dayEvents.length > 0) {
-      return (
-        <div>
-          {dayEvents.map(event => (
-            <div key={event.id} className="event-indicator">{event.name}</div>
-          ))}
-        </div>
-      );
+    if (view === 'month') {
+      const dayEvents = events.filter(event => new Date(event.date).toDateString() === date.toDateString());
+      if (dayEvents.length > 0) {
+        return (
+          <div>
+            {dayEvents.map(event => (
+              <div key={event.id} className="event-indicator">{event.name}</div>
+            ))}
+          </div>
+        );
+      }
     }
-  }
-};
+  };
 
   return (
     <div className="event-calendar">
@@ -101,22 +101,23 @@ const EventCalendar = () => {
       </div>
       {user ? (
         <div className='add-event-container'>
-          <input
-            type="text"
-            value={newEventName}
-            onChange={(e) => setNewEventName(e.target.value)}
-            placeholder="Event Name"
-          />
-          <button className="add-event-button" onClick={addEvent}>Add Event</button>
-          <ul>
-            {eventsForSelectedDate.map(event => (
-              <li key={event.id}>
-                {event.name}
-                <button className="delete-event-button" onClick={() => removeEvent(event.id)}>Remove</button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <p>Selected Date: {selectedDate.toDateString()}</p>
+        <input
+          type="text"
+          value={newEventName}
+          onChange={(e) => setNewEventName(e.target.value)}
+          placeholder="Event Name"
+        />
+        <button className="add-event-button" onClick={addEvent}>Add Event</button>
+        <ul>
+          {eventsForSelectedDate.map(event => (
+            <li key={event.id}>
+              {event.name}
+              <button className="delete-event-button" onClick={() => removeEvent(event.id)}>Remove</button>
+            </li>
+          ))}
+        </ul>
+      </div>
       ) : null}
     </div>
   );

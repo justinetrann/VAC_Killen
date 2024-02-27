@@ -79,3 +79,7 @@
  .event-calendar input[type="text"]:focus {
    border-color: #dbdbdb;
  }
+
+ .event-calendar .p{
+   font-family: 'Comfortaa', cursive;
+ }
