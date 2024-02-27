@@ -75,9 +75,11 @@ function Contact() {
         <Navbar />
         <h1>{user ? 'Inbox' : 'Contact Us'}</h1>
         {user && (
-                <button onClick={toggleSortDirection}>
-                    Sort: {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
-                </button>
+        <div className="sort-button-container">
+            <button className="sort-options" onClick={toggleSortDirection}>
+                Sort: {sortDirection === 'asc' ? 'Oldest Email' : 'Most Recent Email'}
+            </button>
+        </div>
         )}
         <div className="contact-form">
           {!user && (
