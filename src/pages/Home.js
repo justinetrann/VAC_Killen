@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Slide } from 'react-slideshow-image';
 import Navbar from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
@@ -31,6 +31,7 @@ function Home() {
   const [content, setContent] = useState({});
   const [loading, setLoading] = useState(true);
   const [slideImages, setSlideImages] = useState([]);
+  const fileInputRef = useRef(null);
   const [frontImages, setFrontImages] = useState({
     front1: '',
     front2: '',
@@ -88,22 +89,51 @@ function Home() {
     loadContentAndImages();
   }, []);
 
-  const handleImageUpload = async (event, boxId) => {
+  const handleSlideImageUpload = async (event) => {
     if (!currentUser) return;
   
     const file = event.target.files[0];
     if (!file) return;
   
-    const storageRef = ref(storage, `frontImages/${boxId}/${file.name}`);
+    const storageRef = ref(storage, `slideImages/${file.name}`);
     await uploadBytes(storageRef, file);
   
     const downloadURL = await getDownloadURL(storageRef);
-    
-    setFrontImages(prev => ({ ...prev, [boxId]: downloadURL }));
   
-    const imagesRef = doc(db, "images", "frontImages");
-    await setDoc(imagesRef, { [boxId]: downloadURL }, { merge: true });
+    setSlideImages(prevImages => [...prevImages, downloadURL]);
+  
+    // Assuming you have a Firestore document to store URLs of slide images
+    const imagesRef = doc(db, "images", "slideImages");
+    await setDoc(imagesRef, { urls: [...slideImages, downloadURL] }, { merge: true });
   };
+
+  const handleImageUpload = async (event, frontImageKey) => {
+    if (!currentUser) return;
+  
+    const file = event.target.files[0];
+    if (!file) return;
+  
+    // Define the storage path and reference for the uploaded file
+    const storageRef = ref(storage, `frontImages/${frontImageKey}/${file.name}`);
+    try {
+      // Upload the file to Firebase Storage
+      await uploadBytes(storageRef, file);
+    
+      // Get the download URL of the uploaded file
+      const downloadURL = await getDownloadURL(storageRef);
+    
+      // Update the frontImages state and Firestore document
+      const newFrontImages = { ...frontImages, [frontImageKey]: downloadURL };
+      setFrontImages(newFrontImages);
+    
+      // Update Firestore document for front images
+      const frontImagesRef = doc(db, "images", "frontImages");
+      await setDoc(frontImagesRef, newFrontImages, { merge: true });
+    } catch (error) {
+      console.error("Error uploading image: ", error);
+    }
+  };
+  
 
   // Handle image removal
   const handleRemoveImage = (imageToRemove) => {
@@ -166,7 +196,21 @@ function Home() {
           ))}
         </Slide>
         {currentUser && (
-            <input className="add-button" type="file" onChange={handleImageUpload} style={{ position: 'absolute', zIndex: 1000 }} />
+          <>
+            <input
+              type="file"
+              onChange={handleSlideImageUpload}
+              style={{ display: 'none' }}
+              ref={fileInputRef}
+            />
+            <button 
+              className="add-button" 
+              onClick={() => fileInputRef.current.click()} 
+              style={{ position: 'absolute', zIndex: 1000 }}
+            >
+              Upload Image
+            </button>
+          </>
         )}
       </div>
       <div className="what-we-believe">
