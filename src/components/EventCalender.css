@@ -1,0 +1,36 @@
+.react-calendar {
+   font-family: 'Comfortaa', cursive;
+   margin-left: 3%;
+   width: 90%;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+   border: none;
+ }
+ .event-calendar button {
+  font-family: 'Comfortaa', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  width: 10%;
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color: #801214;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.event-calendar button:hover {
+  background: #dbdbdb;
+}
+
+.event-calendar .delete-event-button {
+  background-color: transparent;
+  color: #801214;
+  border: none;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.event-calendar .add-event-button{
+   margin-left: 2%;
+}

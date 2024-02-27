@@ -7,6 +7,7 @@ import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Slider from "react-slick";
 import Navbar from '../components/Navbar';
+import EventCalendar from '../components/EventCalender';
 import useToast from '../hooks/useToast';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -187,6 +188,7 @@ function Events() {
     <div className="Events">
       <Navbar />
       <h1>Events</h1>
+      <EventCalendar />
       {isShowing && <div className="toast-message">{message}</div>}
       <div className="events-container">
         <div className="dates-list">
