@@ -85,7 +85,8 @@
   margin: 20px;
   margin-left: 20px;
   padding: 10px 100px;
-  max-width: 600px;
+  max-width: 800px;
+  min-height: 600px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
@@ -122,11 +123,13 @@
 }
 
 .my-slider .slick-prev {
-    left: calc(50% - 260px);
+    margin-top: 10%;
+    left: calc(50% - 45%);
 }
 
 .my-slider .slick-next {
-    right: calc(50% - 260px);
+    margin-top: 10%;
+    right: calc(50% - 45%);
 }
 
 .delete-event-button{
