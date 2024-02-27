@@ -90,31 +90,33 @@ function Contact() {
         </div>
         )}
         <div className="contact-form">
-          {!user && (
-            <form onSubmit={handleContactSubmit}>
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={contactEmail}
-                onChange={(e) => setContactEmail(e.target.value)}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Title"
-                value={contactTitle}
-                onChange={(e) => setContactTitle(e.target.value)}
-                required
-              />
-              <textarea
-                placeholder="Message"
-                value={contactMessage}
-                onChange={(e) => setContactMessage(e.target.value)}
-                required
-              ></textarea>
-              <button type="submit">Send Message</button>
-            </form>
-          )}
+            {!user && (
+              <div className='form-contact'>
+                <form onSubmit={handleContactSubmit}>
+                  <input
+                    type="email"
+                    placeholder="Your Email"
+                    value={contactEmail}
+                    onChange={(e) => setContactEmail(e.target.value)}
+                    required
+                  />
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={contactTitle}
+                    onChange={(e) => setContactTitle(e.target.value)}
+                    required
+                  />
+                  <textarea
+                    placeholder="Message"
+                    value={contactMessage}
+                    onChange={(e) => setContactMessage(e.target.value)}
+                    required
+                  ></textarea>
+                  <button type="submit">Send Message</button>
+                </form>
+              </div>
+            )}
         {user && (
         <div>
         {messages.map((message) => (
