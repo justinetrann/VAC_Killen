@@ -96,19 +96,19 @@ function Contact() {
               <button type="submit">Send Message</button>
             </form>
           )}
-          {user && (
-            <div>
+        {user && (
+        <div>
             {messages.map((message) => (
-                <div key={message.id}>
+            <div key={message.id} className="message-container">
                 <p>Email: {message.email}</p>
                 <p>Title: {message.title}</p>
                 <p>Message: {message.message}</p>
                 <p>Date: {message.date.toDate().toString()}</p>
                 <button onClick={() => handleDeleteMessage(message.id)}>Delete</button>
-                </div>
-            ))}
             </div>
-          )}
+            ))}
+        </div>
+        )}
         </div>
       </div>
     );
