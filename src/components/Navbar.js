@@ -38,7 +38,7 @@ function Navbar() {
           <Link to="/">Vietnamese Alliance Church Killeen</Link>
         </div>
         <div className="nav-links">
-          <Link to="#about">About</Link>
+          <Link to="/about">About</Link>
           <Link to="/sermons">Sermons</Link>
           <Link to="/events">Events</Link>
           <Link to="/contact">Contact</Link>

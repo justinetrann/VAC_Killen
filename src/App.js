@@ -5,6 +5,7 @@ import Sermon from './pages/Sermon';
 import Login from './pages/Login';
 import Events from './pages/Events';
 import Contact from './pages/Contact';
+import About from './pages/About';
 import logo from './img/logo.png';
 import './App.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -30,7 +31,7 @@ function Navbar() {
         <Link to="/">Vietnamese Alliance Church Killeen</Link>
       </div>
       <div className="nav-links">
-        <Link to="/">About</Link>
+        <Link to="/about">About</Link>
         <Link to="/sermons">Sermons</Link>
         <Link to="/events">Events</Link>
         <Link to="/contant">Contact</Link>
@@ -52,6 +53,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/sermons" element={<Sermon />} />
             <Route path="/events" element={<Events />} />
