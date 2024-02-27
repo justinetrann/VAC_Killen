@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap');
 
+.Events .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; 
+  background-color: black;
+}
+
 .Events h1{
   padding-top: 70px;
   padding-left: 50px;
@@ -18,13 +26,6 @@
   align-items: center; 
   height: 100vh;
   flex-direction: column;
-}
-
-.Events .navbar {
-  position: absolute;
-  background-color: black;
-  top: 0;
-  width: 100%;
 }
 
 .Events .form, .events-form {
