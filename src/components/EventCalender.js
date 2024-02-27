@@ -102,6 +102,7 @@ const EventCalendar = () => {
       {user ? (
         <div>
           <input
+            className='input-add-event'
             type="text"
             value={newEventName}
             onChange={(e) => setNewEventName(e.target.value)}

@@ -4,19 +4,25 @@
    width: 90%;
    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
    border: none;
- }
+}
+
+.react-calendar__tile--active, 
+.react-calendar__tile--select {
+  background-color: transparent !important; /* Prevents color change */
+  color: inherit; /* Keeps the text color consistent */
+}
  .event-calendar button {
-  font-family: 'Comfortaa', cursive;
-  text-transform: uppercase;
-  outline: 0;
-  width: 10%;
-  border: 0;
-  border-radius: 5px;
-  padding: 15px;
-  color: #801214;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  cursor: pointer;
+   font-family: 'Comfortaa', cursive;
+   text-transform: uppercase;
+   outline: 0;
+   width: 10%;
+   border: 0;
+   border-radius: 5px;
+   padding: 15px;
+   color: #801214;
+   font-size: 14px;
+   transition: all 0.3s ease;
+   cursor: pointer;
 }
 
 .event-calendar button:hover {
@@ -33,4 +39,8 @@
 
 .event-calendar .add-event-button{
    margin-left: 2%;
+}
+
+.event-calendar .input-add-event{
+   align-items: center;
 }
