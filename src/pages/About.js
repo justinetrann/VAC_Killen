@@ -123,7 +123,7 @@ function About() {
                 ['link', 'image', 'video'],
                 ['clean']
               ],
-              imageResize: {}, // Add imageResize module here
+              imageResize: {},
             }}
           />
           <button className='editor-submit' onClick={handleQuillSubmit}>Update Content</button>
@@ -133,5 +133,6 @@ function About() {
     </div>
   );
 }
+
 
 export default About;
