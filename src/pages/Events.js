@@ -171,7 +171,7 @@ function Events() {
       setEvents(events.filter(event => event.id !== eventId));
     }
 
-    showToast("Event has been deleted");
+    showToast("Event has been deleted. Reload Page.");
   };
 
   const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
