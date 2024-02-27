@@ -87,35 +87,30 @@
   margin-left: 20px;
   padding: 10px 100px;
   max-width: 800px;
-  min-height: 600px;
+  min-height: 400px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-.Events .photos img {
+.Events .photos img, .my-slider .slick-slide img {
   width: 100%;
   height: auto;
-  margin-top: 10px;
-  border-radius: 5px;
+  object-fit: contain;
+  object-position: center;
+  overflow: hidden;
 }
 
 .my-slider {
-  flex: 3;
-  height: auto;
-}
-
-.my-slider .slick-slide {
-  height: auto;
+  height: 300px; /* Adjust this as needed */
+  overflow: hidden; /* Ensure no overflow */
 }
 
 .my-slider .slick-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.my-slider {
-  height: 300px;
+  max-height: 300px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .my-slider .slick-prev,
@@ -135,7 +130,8 @@
 
 .delete-event-button{
   font-family: 'Comfortaa', cursive;
-  margin-top: 25%;
+  margin-top: 5%;
+  margin-bottom: 5%;
   background-color: transparent;
   cursor: pointer;
 }
