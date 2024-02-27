@@ -1,6 +1,6 @@
 .react-calendar {
    font-family: 'Comfortaa', cursive;
-   margin-left: 3%;
+   margin-left: 5%;
    width: 90%;
    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
    border: none;
@@ -8,10 +8,16 @@
 
 .react-calendar__tile--active, 
 .react-calendar__tile--select {
-  background-color: transparent !important; /* Prevents color change */
-  color: inherit; /* Keeps the text color consistent */
+  background-color: transparent !important;
+  color: inherit;
 }
- .event-calendar button {
+
+.react-calendar__tile--now {
+   background: #801214 !important;
+   color: white !important;
+}
+
+.event-calendar button {
    font-family: 'Comfortaa', cursive;
    text-transform: uppercase;
    outline: 0;
@@ -34,13 +40,41 @@
   color: #801214;
   border: none;
   padding: 5px;
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 .event-calendar .add-event-button{
    margin-left: 2%;
+   background-color: transparent;
+   color: #801214;
+   border: none;
+   padding: 5px;
+   margin-top: 10px;
 }
 
 .event-calendar .input-add-event{
    align-items: center;
 }
+
+.event-calendar .add-event-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   gap: 10px;
+ }
+
+.event-calendar input[type="text"] {
+   font-family: 'Comfortaa', cursive;
+   width: 30%;
+   padding: 10px;
+   margin: 10px 0;
+   border: 2px solid #801214;
+   border-radius: 5px;
+   outline: none;
+   transition: all 0.3s ease;
+ }
+ 
+ .event-calendar input[type="text"]:focus {
+   border-color: #dbdbdb;
+ }

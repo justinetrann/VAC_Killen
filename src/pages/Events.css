@@ -5,13 +5,13 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000; 
+  z-index: 1000;
   background-color: black;
 }
 
 .Events h1{
   padding-top: 70px;
-  padding-left: 50px;
+  padding-left: 80px;
   font-family: 'Judson', serif;
   color: #801214;
 }
