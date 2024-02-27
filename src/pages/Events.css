@@ -83,10 +83,10 @@
 
 .Events .event {
   border-radius: 10px;
-  margin: 20px;
+  margin-right: 50px;
   margin-left: 20px;
   padding: 10px 100px;
-  max-width: 800px;
+  max-width: 500px;
   min-height: 400px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.5);
@@ -183,6 +183,7 @@
 .dates-list {
   flex: 0 1 150px;
   margin-right: 10px;
+  margin-left: 38px;
   padding: 20px 10px 20px 20px;
   border-radius: 10px;
   font-family: 'Comfortaa', cursive;
