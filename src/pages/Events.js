@@ -39,7 +39,6 @@ function Events() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const { isShowing, message, showToast } = useToast();
   const settings = {
-    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
