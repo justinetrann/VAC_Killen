@@ -150,7 +150,7 @@ function Home() {
 
     const imageRef = ref(storage, imageToRemove);
     deleteObject(imageRef).then(() => {
-      showToast("Image deleted successfully");
+      showToast("Image deleted successfully. Refresh Page.");
     }).catch((error) => {
       console.error('Error removing image: ', error);
     });
@@ -168,7 +168,7 @@ function Home() {
     
     try {
       await setDoc(doc(db, "contents", "pageContent"), { [contentId]: content }, { merge: true });
-      console.log("Document successfully updated!");
+      console.log("Document successfully updated! Refresh Page.");
     } catch (error) {
       console.error("Error updating document: ", error);
     }
