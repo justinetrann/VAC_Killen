@@ -25,6 +25,7 @@ function Contact() {
     const [messages, setMessages] = useState([]);
     const [user, setUser] = useState(null);
     const [sortDirection, setSortDirection] = useState('asc');
+    const [readMessages, setReadMessages] = useState({});
 
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
@@ -70,6 +71,13 @@ function Contact() {
           setSortDirection(prevDirection => prevDirection === 'asc' ? 'desc' : 'asc');
       };
   
+    const toggleMessageReadStatus = (id) => {
+        setReadMessages(prevReadMessages => ({
+            ...prevReadMessages,
+            [id]: !prevReadMessages[id], // Toggle the read status
+        }));
+    };
+
     return (
       <div className="contact">
         <Navbar />
@@ -110,13 +118,23 @@ function Contact() {
         {user && (
         <div>
         {messages.map((message) => (
-            <div key={message.id} className="message-container">
+            <div
+                key={message.id}
+                className={`message-container ${readMessages[message.id] ? 'message-read' : ''}`}
+            >
                 <p>Email: {message.email}</p>
                 <p>Title: {message.title}</p>
                 <p>Message: {message.message}</p>
-                {/* Check if toDate exists and call it; otherwise, use the existing date value */}
                 <p>Date: {message.date?.toDate ? message.date.toDate().toString() : message.date.toString()}</p>
-                <button onClick={() => handleDeleteMessage(message.id)}>Delete</button>
+                <button onClick={(e) => {e.stopPropagation(); handleDeleteMessage(message.id);}}>Delete</button>
+                <button 
+                    onClick={(e) => {
+                        e.stopPropagation(); // Prevent click from bubbling to the div
+                        toggleMessageReadStatus(message.id);
+                    }}
+                    className="read-button">
+                    {readMessages[message.id] ? 'Unread' : 'Read'}
+                </button>
             </div>
         ))}
         </div>
