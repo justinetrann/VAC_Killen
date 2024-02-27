@@ -6,6 +6,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import ReactQuill from 'react-quill';
+import useToast from '../hooks/useToast';
 import 'react-quill/dist/quill.snow.css';
 import 'react-slideshow-image/dist/styles.css';
 import './Home.css';
@@ -32,6 +33,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [slideImages, setSlideImages] = useState([]);
   const fileInputRef = useRef(null);
+  const { isShowing, message, showToast } = useToast();
   const [frontImages, setFrontImages] = useState({
     front1: '',
     front2: '',
@@ -105,6 +107,7 @@ function Home() {
     // Assuming you have a Firestore document to store URLs of slide images
     const imagesRef = doc(db, "images", "slideImages");
     await setDoc(imagesRef, { urls: [...slideImages, downloadURL] }, { merge: true });
+    showToast("Image Uploaded successfully. Refresh Page.");
   };
 
   const handleImageUpload = async (event, frontImageKey) => {
@@ -147,7 +150,7 @@ function Home() {
 
     const imageRef = ref(storage, imageToRemove);
     deleteObject(imageRef).then(() => {
-      console.log('Image deleted successfully');
+      showToast("Image deleted successfully");
     }).catch((error) => {
       console.error('Error removing image: ', error);
     });
@@ -182,6 +185,7 @@ function Home() {
   return (
     <div className="Home">
       <Navbar />
+      {isShowing && <div className="toast-message">{message}</div>}
       <div className="slide-container">
         <Slide easing="ease">
           {slideImages.map((slideImage, index) => (

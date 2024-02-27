@@ -31,8 +31,8 @@ function Sermon() {
   const [errorMessage, setErrorMessage] = useState("");
   const [sortCriteria, setSortCriteria] = useState('date');
   const [sortDirection, setSortDirection] = useState('asc');
-  const { isShowing, message, showToast } = useToast();
   const [currentPdfUrl, setCurrentPdfUrl] = useState('');
+  const { isShowing, message, showToast } = useToast();
 
   useEffect(() => {
    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
