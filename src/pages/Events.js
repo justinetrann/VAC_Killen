@@ -168,9 +168,9 @@ function Events() {
       await deleteDoc(doc(db, "events", eventId));
       // Update the UI by filtering out the deleted event
       setEvents(events.filter(event => event.id !== eventId));
+      showToast("Event has been deleted. Reload Page.");
     }
 
-    showToast("Event has been deleted. Reload Page.");
   };
 
   const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
