@@ -21,6 +21,7 @@
 
 .location{
   padding-left: 50px;
+  padding-bottom: 20px;
 }
 
 .location .input-location{
@@ -42,7 +43,7 @@
   text-transform: uppercase;
   outline: 0;
   background: #801214;
-  width: 11%; /* Adjusted for full width within its container, or set a specific px value */
+  width: 11%;
   border: 0;
   border-radius: 5px;
   padding: 15px;
@@ -56,4 +57,37 @@
 
 .location-submit:active {
   background: #b34345;
+}
+
+.editor-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 5%;
+}
+
+.editor {
+  width: 90%;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
+
+.editor-submit {
+  font-family: 'Comfortaa', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  background: #801214;
+  width: 11%;
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 11px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }

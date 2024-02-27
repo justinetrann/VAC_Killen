@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import './About.css';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import './About.css';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCTpfM8O1jXnvUaRpT15ea53I7itKcPcQU",
@@ -23,6 +25,7 @@ function About() {
   const [user] = useAuthState(auth);
   const [location, setLocation] = useState(null);
   const [newLocationName, setNewLocationName] = useState('');
+  const [editorContent, setEditorContent] = useState('');
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -52,6 +55,18 @@ function About() {
     }
   };
 
+  const handleQuillSubmit = async () => {
+    if (user) {
+      const newContent = { content: editorContent };
+      const docRef = doc(firestore, "locations", "uniqueLocationId");
+      await setDoc(docRef, newContent, { merge: true }); // Merge with existing data
+      setLocation(newContent);
+      setEditorContent(''); // Reset editor content after submit
+    } else {
+      alert("You must be logged in to update content!");
+    }
+  };
+
   return (
     <div className='About'>
       <Navbar />
@@ -72,6 +87,19 @@ function About() {
             </form>
           </>
         ) : ( null )}
+      </div>
+      <div className="editor-container">
+      {user ? (
+        <>
+          <ReactQuill
+            className="editor"
+            theme="snow"
+            value={editorContent}
+            onChange={setEditorContent}
+          />
+          <button className='editor-submit' onClick={handleQuillSubmit}>Update Content</button>
+        </>
+      ) : (null)}
       </div>
     </div>
   );
