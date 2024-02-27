@@ -66,49 +66,51 @@ function Contact() {
    };
 
    return (
-       <div className="contact-page">
-           <Navbar />
-           <h2>Contact Us</h2>
-           <form onSubmit={handleContactSubmit}>
-               {!user && (
-                   <input
-                       type="email"
-                       placeholder="Your Email"
-                       value={contactEmail}
-                       onChange={(e) => setContactEmail(e.target.value)}
-                       required
-                   />
-               )}
-               <input
-                   type="text"
-                   placeholder="Title"
-                   value={contactTitle}
-                   onChange={(e) => setContactTitle(e.target.value)}
-                   required
-               />
-               <textarea
-                   placeholder="Message"
-                   value={contactMessage}
-                   onChange={(e) => setContactMessage(e.target.value)}
-                   required
-               ></textarea>
-               <button type="submit">Send Message</button>
-           </form>
-           {user && (
-               <>
-                   <h2>Update Contact Email</h2>
-                   <form onSubmit={handleEmailUpdate}>
-                       <input
-                           type="email"
-                           placeholder="New Email"
-                           value={newEmail}
-                           onChange={(e) => setNewEmail(e.target.value)}
-                           required
-                       />
-                       <button type="submit">Update Email</button>
-                   </form>
-               </>
-           )}
+       <div className="contact">
+         < Navbar/>
+           <h1>Contact Us</h1>
+           <div className="contact-form">
+            <form onSubmit={handleContactSubmit}>
+                  {!user && (
+                     <input
+                        type="email"
+                        placeholder="Your Email"
+                        value={contactEmail}
+                        onChange={(e) => setContactEmail(e.target.value)}
+                        required
+                     />
+                  )}
+                  <input
+                     type="text"
+                     placeholder="Title"
+                     value={contactTitle}
+                     onChange={(e) => setContactTitle(e.target.value)}
+                     required
+                  />
+                  <textarea
+                     placeholder="Message"
+                     value={contactMessage}
+                     onChange={(e) => setContactMessage(e.target.value)}
+                     required
+                  ></textarea>
+                  <button type="submit">Send Message</button>
+            </form>
+            {user && (
+                  <>
+                     <h2>Update Contact Email</h2>
+                     <form onSubmit={handleEmailUpdate}>
+                        <input
+                              type="email"
+                              placeholder="New Email"
+                              value={newEmail}
+                              onChange={(e) => setNewEmail(e.target.value)}
+                              required
+                        />
+                        <button type="submit">Update Email</button>
+                     </form>
+                  </>
+            )}
+           </div>
        </div>
    );
 }
