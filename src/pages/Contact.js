@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Contact.css';
 import Navbar from '../components/Navbar';
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, query, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, query, deleteDoc, doc, orderBy, onSnapshot} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
@@ -24,52 +24,61 @@ function Contact() {
     const [contactMessage, setContactMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [user, setUser] = useState(null);
-  
+    const [sortDirection, setSortDirection] = useState('asc');
+
     useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        if (currentUser) {
-          fetchMessages();
-        }
-      });
-  
-      return () => unsubscribe();
-    }, []);
-  
-    const fetchMessages = async () => {
-      const q = query(collection(db, "messages"));
-      const querySnapshot = await getDocs(q);
-      const fetchedMessages = [];
-      querySnapshot.forEach((doc) => {
-        fetchedMessages.push({ id: doc.id, ...doc.data() });
-      });
-      setMessages(fetchedMessages);
-    };
-  
+        onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+
+        const q = query(collection(db, 'messages'), orderBy('date', sortDirection));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const items = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                // Convert Firestore timestamp to JS Date object if necessary
+                data.date = data.date ? data.date.toDate() : new Date();
+                items.push({...data, id: doc.id});
+            });
+            setMessages(items);
+        });
+
+        return () => unsubscribe(); // Cleanup on unmount
+    }, [sortDirection]);
+
     const handleContactSubmit = async (e) => {
-      e.preventDefault();
-      const messageData = {
-        email: contactEmail,
-        title: contactTitle,
-        message: contactMessage,
-        date: new Date()
+        e.preventDefault();
+        const messageData = {
+          email: contactEmail,
+          title: contactTitle,
+          message: contactMessage,
+          date: new Date()
+        };
+        await addDoc(collection(db, "messages"), messageData);
+        setContactEmail('');
+        setContactTitle('');
+        setContactMessage('');
+        alert("Message sent successfully!");
       };
-      await addDoc(collection(db, "messages"), messageData);
-      setContactEmail('');
-      setContactTitle('');
-      setContactMessage('');
-      alert("Message sent successfully!");
-    };
+    
+      const handleDeleteMessage = async (id) => {
+          await deleteDoc(doc(db, "messages", id));
+          setMessages(messages.filter(message => message.id !== id));
+      };
   
-    const handleDeleteMessage = async (id) => {
-      await deleteDoc(doc(db, "messages", id));
-      fetchMessages(); // Refresh messages after deletion
-    };
+      const toggleSortDirection = () => {
+          setSortDirection(prevDirection => prevDirection === 'asc' ? 'desc' : 'asc');
+      };
   
     return (
       <div className="contact">
         <Navbar />
         <h1>{user ? 'Inbox' : 'Contact Us'}</h1>
+        {user && (
+                <button onClick={toggleSortDirection}>
+                    Sort: {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
+                </button>
+        )}
         <div className="contact-form">
           {!user && (
             <form onSubmit={handleContactSubmit}>
@@ -98,15 +107,16 @@ function Contact() {
           )}
         {user && (
         <div>
-            {messages.map((message) => (
+        {messages.map((message) => (
             <div key={message.id} className="message-container">
                 <p>Email: {message.email}</p>
                 <p>Title: {message.title}</p>
                 <p>Message: {message.message}</p>
-                <p>Date: {message.date.toDate().toString()}</p>
+                {/* Check if toDate exists and call it; otherwise, use the existing date value */}
+                <p>Date: {message.date?.toDate ? message.date.toDate().toString() : message.date.toString()}</p>
                 <button onClick={() => handleDeleteMessage(message.id)}>Delete</button>
             </div>
-            ))}
+        ))}
         </div>
         )}
         </div>
