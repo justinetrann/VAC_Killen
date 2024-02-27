@@ -30,7 +30,7 @@ const EventCalendar = () => {
   }, []);
 
   useEffect(() => {
-    const q = query(collection(db, "events"));
+    const q = query(collection(db, "calendar"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const events = querySnapshot.docs.map(doc => ({
         id: doc.id,
@@ -57,8 +57,8 @@ const EventCalendar = () => {
     dateWithTimezone.setMinutes(dateWithTimezone.getMinutes() - dateWithTimezone.getTimezoneOffset());
     // Add one day to account for the day-after adjustment
     dateWithTimezone.setDate(dateWithTimezone.getDate() + 1);
-    
-    await addDoc(collection(db, "events"), {
+
+    await addDoc(collection(db, "calendar"), {
       name: newEventName,
       date: dateWithTimezone.toISOString().split('T')[0], // Convert to YYYY-MM-DD format
       userId: user.uid,
@@ -69,7 +69,7 @@ const EventCalendar = () => {
   const removeEvent = async (id) => {
     if (!user) return;
 
-    await deleteDoc(doc(db, "events", id));
+    await deleteDoc(doc(db, "calendar", id));
   };
 
   // Filter events for the currently selected date
