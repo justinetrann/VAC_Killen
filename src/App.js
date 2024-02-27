@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Sermon from './pages/Sermon';
 import Login from './pages/Login';
 import Events from './pages/Events';
+import Contact from './pages/Contact';
 import logo from './img/logo.png';
 import './App.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -32,7 +33,7 @@ function Navbar() {
         <Link to="/">About</Link>
         <Link to="/sermons">Sermons</Link>
         <Link to="/events">Events</Link>
-        <Link to="/">Contact</Link>
+        <Link to="/contant">Contact</Link>
         {currentUser ? (
           <button onClick={() => logout()}>Logout</button>
         ) : (
@@ -54,6 +55,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/sermons" element={<Sermon />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/contact" element={<Contact />} />
             {/* Add other routes as needed */}
           </Routes>
         </div>
