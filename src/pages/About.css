@@ -6,3 +6,54 @@
    background-color: black;
  }
  
+.About h1{
+  padding-top: 80px;
+  padding-left: 50px;
+  font-family: 'Judson', serif;
+  color: #801214;
+}
+
+.About .location-name{
+  font-family: 'Comfortaa', cursive;
+  color: #801214;
+  padding-bottom: 10px;
+}
+
+.location{
+  padding-left: 50px;
+}
+
+.location .input-location{
+  font-family: 'Comfortaa', cursive;
+  margin-right: 15px;
+  outline: 0;
+  background: #f2f2f2;
+  width: 20%;
+  border: 0;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.location-submit {
+  font-family: 'Comfortaa', cursive;
+  text-transform: uppercase;
+  outline: 0;
+  background: #801214;
+  width: 11%; /* Adjusted for full width within its container, or set a specific px value */
+  border: 0;
+  border-radius: 5px;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 11px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.location-submit:active {
+  background: #b34345;
+}
