@@ -7,6 +7,7 @@ import { getFirestore, collection, query, where, getDocs, doc, updateDoc, addDoc
 import { getStorage, ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import Slider from "react-slick";
 import Navbar from '../components/Navbar';
+import useToast from '../hooks/useToast';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './Events.css';
@@ -35,6 +36,7 @@ function Events() {
   const [events, setEvents] = useState([]);
   const [dates, setDates] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const { isShowing, message, showToast } = useToast();
   const settings = {
     dots: true,
     infinite: true,
@@ -105,39 +107,52 @@ function Events() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!user) return; // Ensure there's a logged-in user
-
+    if (!user) {
+      showToast("Please log in to continue."); // Notify user to log in
+      return; // Ensure there's a logged-in user
+    }
+  
     // Check if the user has selected more than 50 photos
     if (photos.length > 50) {
-      alert("You can only upload up to 50 photos.");
+      showToast("You can only upload up to 50 photos."); // Use showToast instead of alert
       return; // Stop the function execution
     }
+  
+    showToast("Adding your event. Please hold on a moment!");
+    setIsFormVisible(!isFormVisible);
 
-    // Add event to Firestore
-    const docRef = await addDoc(collection(db, "events"), {
-      title,
-      date,
-      userId: user.uid,
-    });
-
+    try {
+      // Add event to Firestore
+      const docRef = await addDoc(collection(db, "events"), {
+        title,
+        date,
+        userId: user.uid,
+      });
+  
       const photosUrls = await Promise.all([...photos].map(async (photo) => {
-      const photoRef = ref(storage, `events/${docRef.id}/${photo.name}`);
-      await uploadBytes(photoRef, photo);
-      return getDownloadURL(photoRef);
-    }));
-
-    // Update the event with photo URLs
-    await updateDoc(doc(db, "events", docRef.id), {
-      photoUrls: photosUrls
-    });
-
-    // Reset form fields
-    setTitle('');
-    setDate('');
-    setPhotos([]);
-
-    // Refresh the events displayed in the UI
-    await fetchEvents(); // This is where you place it
+        const photoRef = ref(storage, `events/${docRef.id}/${photo.name}`);
+        await uploadBytes(photoRef, photo);
+        return getDownloadURL(photoRef);
+      }));
+  
+      // Update the event with photo URLs
+      await updateDoc(doc(db, "events", docRef.id), {
+        photoUrls: photosUrls
+      });
+  
+      // Reset form fields
+      setTitle('');
+      setDate('');
+      setPhotos([]);
+  
+      // Refresh the events displayed in the UI
+      await fetchEvents(); // Assume this function exists to refresh event data
+  
+      showToast("Event added successfully!"); // Show success message
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      showToast("Failed to add event. Please try again."); // Show error message
+    }
   };
 
   
@@ -151,10 +166,11 @@ function Events() {
     // Confirm before deleting
     if (window.confirm("Are you sure you want to delete this event?")) {
       await deleteDoc(doc(db, "events", eventId));
-
       // Update the UI by filtering out the deleted event
       setEvents(events.filter(event => event.id !== eventId));
     }
+
+    showToast("Event has been deleted");
   };
 
   const toggleFormVisibility = () => setIsFormVisible(!isFormVisible);
@@ -171,6 +187,7 @@ function Events() {
     <div className="Events">
       <Navbar />
       <h1>Events</h1>
+      {isShowing && <div className="toast-message">{message}</div>}
       <div className="events-container">
         <div className="dates-list">
           {dates.map((date, index) => (
