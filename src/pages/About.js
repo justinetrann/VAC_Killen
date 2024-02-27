@@ -6,6 +6,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import ReactQuill from 'react-quill';
 import ImageResize from 'quill-image-resize-module-react';
+import useToast from '../hooks/useToast';
 import 'react-quill/dist/quill.snow.css';
 import './About.css';
 
@@ -30,6 +31,7 @@ function About() {
   const [location, setLocation] = useState(null);
   const [newLocationName, setNewLocationName] = useState('');
   const [editorContent, setEditorContent] = useState('');
+  const { isShowing, message, showToast } = useToast();
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -79,6 +81,12 @@ function About() {
       await setDoc(editorDocRef, newContent, { merge: true });
       setLocation(newContent);
       setEditorContent(''); // Reset editor content after submit
+      showToast("Content Updated successfully. Refreshing Page.");
+  
+      // Wait for a few seconds before reloading the page to allow the user to read the toast message
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); // 2000 milliseconds = 2 seconds
     } else {
       alert("You must be logged in to update content!");
     }
@@ -88,6 +96,7 @@ function About() {
     <div className='About'>
       <Navbar />
       <h1>About</h1>
+      {isShowing && <div className="toast-message">{message}</div>}
       <div className='location'>
         {location && <div className='location-name'>Location: {location.name}</div>}
         {user ? (
