@@ -19,7 +19,7 @@
    font-family: 'Comfortaa', cursive;
  }
 
- .contact .contact-form {
+.contact .contact-form {
    position: relative;
    z-index: 1;
    max-width: 360px;
@@ -29,7 +29,8 @@
    border-radius: 10px;
    margin-top: 1%;
    margin-bottom: 5%;
- }
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
  
 .contact-form input,
 .contact-form textarea {
