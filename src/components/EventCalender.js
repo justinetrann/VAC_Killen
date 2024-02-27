@@ -55,7 +55,9 @@ const EventCalendar = () => {
     dateWithTimezone.setHours(0, 0, 0, 0);
     // Offset the date to account for the timezone, ensuring it aligns with the start of the day in UTC
     dateWithTimezone.setMinutes(dateWithTimezone.getMinutes() - dateWithTimezone.getTimezoneOffset());
-  
+    // Add one day to account for the day-after adjustment
+    dateWithTimezone.setDate(dateWithTimezone.getDate() + 1);
+    
     await addDoc(collection(db, "events"), {
       name: newEventName,
       date: dateWithTimezone.toISOString().split('T')[0], // Convert to YYYY-MM-DD format
