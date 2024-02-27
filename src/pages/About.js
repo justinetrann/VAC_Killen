@@ -33,17 +33,30 @@ function About() {
 
   useEffect(() => {
     const fetchLocation = async () => {
-      const docRef = doc(firestore, "locations", "uniqueLocationId");
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setLocation(docSnap.data());
+      const locationDocRef = doc(firestore, "locations", "uniqueLocationId");
+      const locationDocSnap = await getDoc(locationDocRef);
+      
+      if (locationDocSnap.exists()) {
+        setLocation(locationDocSnap.data());
       } else {
-        console.log("No such document!");
+        console.log("No such document for location!");
       }
     };
 
     fetchLocation();
+
+    const fetchEditorContent = async () => {
+      const editorDocRef = doc(firestore, "editorContent", "uniqueEditorId");
+      const editorDocSnap = await getDoc(editorDocRef);
+  
+      if (editorDocSnap.exists()) {
+        setEditorContent(editorDocSnap.data().content);
+      } else {
+        console.log("No such document for editor content!");
+      }
+    };
+  
+    fetchEditorContent();
   }, []);
 
   const handleLocationSubmit = async (event) => {
@@ -62,8 +75,8 @@ function About() {
   const handleQuillSubmit = async () => {
     if (user) {
       const newContent = { content: editorContent };
-      const docRef = doc(firestore, "locations", "uniqueLocationId");
-      await setDoc(docRef, newContent, { merge: true }); // Merge with existing data
+      const editorDocRef = doc(firestore, "editorContent", "uniqueEditorId");
+      await setDoc(editorDocRef, newContent, { merge: true });
       setLocation(newContent);
       setEditorContent(''); // Reset editor content after submit
     } else {
