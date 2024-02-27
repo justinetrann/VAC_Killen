@@ -130,6 +130,9 @@ function About() {
         </>
       ) : (null)}
       </div>
+      <div className='editor-container-display'>
+        <div className="content-display" dangerouslySetInnerHTML={{ __html: editorContent }}></div>
+      </div>
     </div>
   );
 }
