@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import ReactQuill from 'react-quill';
+import ImageResize from 'quill-image-resize-module-react';
 import 'react-quill/dist/quill.snow.css';
 import './About.css';
 
@@ -20,6 +21,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
+
+const Quill = ReactQuill.Quill;
+Quill.register('modules/imageResize', ImageResize);
 
 function About() {
   const [user] = useAuthState(auth);
@@ -96,6 +100,18 @@ function About() {
             theme="snow"
             value={editorContent}
             onChange={setEditorContent}
+            modules={{
+              toolbar: [
+                [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+                [{size: []}],
+                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                [{'list': 'ordered'}, {'list': 'bullet'},
+                 {'indent': '-1'}, {'indent': '+1'}],
+                ['link', 'image', 'video'],
+                ['clean']
+              ],
+              imageResize: {}, // Add imageResize module here
+            }}
           />
           <button className='editor-submit' onClick={handleQuillSubmit}>Update Content</button>
         </>
