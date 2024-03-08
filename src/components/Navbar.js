@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import logo from './img/logo.png';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from './img/title.png';
 import './Navbar.css';
 import { useAuth } from '../context/AuthContext';
 import useToast from '../hooks/useToast';
@@ -9,6 +9,7 @@ function Navbar() {
   const { currentUser, logout } = useAuth();
   const [navBackground, setNavBackground] = useState('transparentNav');
   const { isShowing, message, showToast } = useToast();
+  const navigate = useNavigate();
 
   const handleScroll = () => {
     const show = window.scrollY > 50;
@@ -33,10 +34,9 @@ function Navbar() {
   return (
     <>
       <nav className={`navbar ${navBackground}`}>
-        <img src={logo} alt="Logo" className="logo" />
-        <div className="church-name">
-          <Link to="/">Vietnamese Alliance Church Killeen</Link>
-        </div>
+        <Link to="/" className="logo">
+          <img src={logo} alt="Logo" width={225}/>
+        </Link>
         <div className="nav-links">
           <Link to="/about">About</Link>
           <Link to="/sermons">Sermons</Link>

@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Events from './pages/Events';
 import Contact from './pages/Contact';
 import About from './pages/About';
-import logo from './img/logo.png';
 import './App.css';
 import { AuthProvider, useAuth } from './context/AuthContext';
 
@@ -26,7 +25,6 @@ function Navbar() {
 
   return (
     <nav className={`navbar ${navBackground}`}>
-      <img src={logo} alt="Logo" className="logo" />
       <div className="church-name">
         <Link to="/">Vietnamese Alliance Church Killeen</Link>
       </div>

@@ -36,14 +36,8 @@
   color: white;
 }
 
-.nav-links a, .church-name {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.logo {
-  width: 4%;
+.navbar .logo {
+  width: 10%;
   height: auto;
 }
 
