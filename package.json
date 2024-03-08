@@ -27,7 +27,6 @@
     "react-slick": "^0.30.2",
     "react-slideshow-image": "^4.3.0",
     "slick-carousel": "^1.8.1",
-    "typescript": "^5.4.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -53,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "typescript": "^5.4.2"
   }
 }
