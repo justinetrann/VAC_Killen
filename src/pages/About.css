@@ -6,6 +6,10 @@
    background-color: black;
  }
  
+.About .nav-links :hover{
+  background-color: rgb(46, 46, 46);
+}
+
 .About h1{
   padding-top: 80px;
   padding-left: 50px;

@@ -6,6 +6,10 @@
    color: black;
 }
 
+.Sermon .nav-links :hover{
+  background-color: rgb(46, 46, 46);
+}
+
 .Sermon h1{
    padding-top: 70px;
    padding-left: 50px;

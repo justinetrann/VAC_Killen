@@ -9,6 +9,10 @@
   background-color: black;
 }
 
+.Events .nav-links :hover {
+  background-color: rgb(46, 46, 46);
+}
+
 .Events h1{
   padding-top: 70px;
   padding-left: 80px;

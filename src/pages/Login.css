@@ -4,6 +4,10 @@
   background-color: black;
 }
 
+.Login .nav-links :hover{
+  background-color: rgb(46, 46, 46);
+}
+
 .Login{
   padding-top: 150px;
 }
