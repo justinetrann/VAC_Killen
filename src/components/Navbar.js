@@ -38,15 +38,25 @@ function Navbar() {
           <img src={logo} alt="Logo" className="title" width={225}/>
         </Link>
         <div className="nav-links">
-          <Link to="/about">About</Link>
-          <Link to="/sermons">Sermons</Link>
-          <Link to="/events">Events</Link>
-          <Link to="/contact">Contact</Link>
-          {currentUser ? (
-            <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <Link to="/login">Login</Link>
-          )}
+          <span className='directory'>
+            <Link to="/about">About</Link>
+          </span>
+          <span className='directory'>
+            <Link to="/sermons">Sermons</Link>
+          </span>
+          <span className='directory'>
+            <Link to="/events">Events</Link>
+          </span>
+          <span className='directory'>
+            <Link to="/contact">Contact</Link>
+          </span>
+          <span className='directory'>
+            {currentUser ? (
+              <button onClick={handleLogout}>Logout</button>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
+          </span>
         </div>
       </nav>
       {isShowing && <div className="toast">{message}</div>}

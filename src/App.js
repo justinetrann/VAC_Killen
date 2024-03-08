@@ -26,13 +26,13 @@ function Navbar() {
   return (
     <nav className={`navbar ${navBackground}`}>
       <div className="church-name">
-        <Link to="/">Vietnamese Alliance Church Killeen</Link>
+        <Link to="/"></Link>
       </div>
       <div className="nav-links">
-        <Link to="/about">About</Link>
-        <Link to="/sermons">Sermons</Link>
-        <Link to="/events">Events</Link>
-        <Link to="/contant">Contact</Link>
+        <Link to="/about"></Link>
+        <Link to="/sermons"></Link>
+        <Link to="/events"></Link>
+        <Link to="/contant"></Link>
         {currentUser ? (
           <button onClick={() => logout()}>Logout</button>
         ) : (

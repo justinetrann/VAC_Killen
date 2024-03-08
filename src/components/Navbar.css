@@ -11,6 +11,10 @@
   z-index: 1000;
 }
 
+.navbar .title {
+  padding-top: 0;
+}
+
 .church-name a {
   text-decoration: none;
 }
@@ -28,12 +32,24 @@
   background-color: transparent;
 }
 
+.transparentNav .nav-links .directory {
+  padding: 20px;
+}
+
 .darkNav {
   background-color: black;
 }
 
 .darkNav .church-name, .darkNav .nav-links a {
   color: white;
+  text-align: center;
+}
+.darkNav .nav-links .directory {
+  padding: 20px;
+}
+.darkNav .nav-links :hover {
+  background-color: rgb(46, 46, 46);
+  
 }
 
 .title {
