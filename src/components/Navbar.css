@@ -36,8 +36,9 @@
   color: white;
 }
 
-.navbar .logo {
-  width: 10%;
+.title {
+  margin: 10%;
+  width: 50%;
   height: auto;
 }
 

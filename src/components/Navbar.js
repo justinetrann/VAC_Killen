@@ -34,8 +34,8 @@ function Navbar() {
   return (
     <>
       <nav className={`navbar ${navBackground}`}>
-        <Link to="/" className="logo">
-          <img src={logo} alt="Logo" width={225}/>
+        <Link to="/">
+          <img src={logo} alt="Logo" className="title" width={225}/>
         </Link>
         <div className="nav-links">
           <Link to="/about">About</Link>

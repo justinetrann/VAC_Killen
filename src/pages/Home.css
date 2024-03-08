@@ -70,7 +70,7 @@ body {
 .slide-container {
   position: relative;
   z-index: 1;
-  margin-top: 5px;
+  margin-top: 0;
 }
 
 .each-slide > div {
