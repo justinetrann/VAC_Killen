@@ -34,9 +34,9 @@ function Navbar() {
         <Link to="/events"></Link>
         <Link to="/contant"></Link>
         {currentUser ? (
-          <button onClick={() => logout()}>Logout</button>
+          <button onClick={() => logout()}></button>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link to="/login"></Link>
         )}
       </div>
     </nav>
